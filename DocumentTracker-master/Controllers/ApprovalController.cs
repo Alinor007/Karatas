@@ -1,6 +1,7 @@
 ﻿using DocumentTracker.Models;
 using DocumentTrackerWebApi.Data;
 using DocumentTrackerWebApi.DTOs;
+using DocumentTrackerWebApi.Extension;
 using DocumentTrackerWebApi.Interfaces;
 using DocumentTrackerWebApi.Mappers;
 using Microsoft.AspNetCore.Identity;
@@ -8,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentTrackerWebApi.Controllers
-    {
-       [Route("api/DocumentApproval")]
+{
+    [Route("api/DocumentApproval")]
     [ApiController]
 
 
@@ -54,21 +55,29 @@ namespace DocumentTrackerWebApi.Controllers
         }
         // POST: api/documents
         [HttpPost("{id:int}/approveOrDecline")]
-        public async Task<ActionResult> ApproveOrDecline(int id, [FromQuery] bool isApproved)
+        public async Task<ActionResult> ApproveOrDecline(int id, [FromQuery] bool isApproved, [FromBody] CreateHistoryDTO createHistoryDto)
         {
-            var approval = await _approval.ApproveOrDeclineAsync(id, isApproved);
 
-            if (approval == null)
-            {
-                return NotFound(new { Message = $"Approval with ID {id} not found." });
-            }
+            var username = User.GetUsername();
+            var AppUser = await _userManager.FindByEmailAsync(username);
+            var HistoryModel = createHistoryDto.ToHistoryFromCreateDTO();
+            HistoryModel.UserId = AppUser.Id;
 
-            if (approval.Remarks == "Declined")
+
+            // Call repository to approve or decline the document and create a history record
+            var result = await _approval.ApproveOrDeclineAsync(id, isApproved, HistoryModel.UserId);
+
+            if (result == null && !isApproved)
             {
                 return Ok(new { Message = "Declined" });
             }
 
-            return Ok(new { Message = isApproved ? "Approved" : "Declined", OfficeId = approval.OfficeId });
+            if (result == null)
+            {
+                return NotFound(new { Message = $"Approval with ID {id} not found." });
+            }
+
+            return Ok(new { Message = isApproved ? "Approved" : "Declined", OfficeId = result.OfficeId });
         }
 
 

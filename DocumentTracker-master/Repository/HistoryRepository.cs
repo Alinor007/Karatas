@@ -41,6 +41,8 @@ namespace DocumentTrackerWebApi.Repository
 
         // Adds a new history record
         public async Task<History> AddAsync(History history)
+
+
         {
             await _context.Histories.AddAsync(history);
             await _context.SaveChangesAsync();

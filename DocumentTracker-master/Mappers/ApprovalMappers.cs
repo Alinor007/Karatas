@@ -19,7 +19,7 @@ namespace DocumentTrackerWebApi.Mappers
                 Remarks = ApprovalModel.Remarks,
                 Created = ApprovalModel.Created,
                 Updated = ApprovalModel.Updated,
-            
+
             };
         }
         public static DocumentApproval ToApprovalFromCreateDTO(this CreateDocumentApprovalDTO ApprovalDTO)
@@ -37,4 +37,3 @@ namespace DocumentTrackerWebApi.Mappers
         }
     }
 }
-
