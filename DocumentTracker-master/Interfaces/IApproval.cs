@@ -12,7 +12,7 @@ namespace DocumentTrackerWebApi.Interfaces
         Task<DocumentApproval?> UpdateAsync(int id, UpdateDocumentApprovalDTO updateApprovalDTO);
         Task<DocumentApproval?> DeleteAsync(int id);
         Task<bool> ExistsAsync(int id);
-        Task<DocumentApproval?> ApproveOrDeclineAsync(int id, bool isApproved);  // New method
+        Task<DocumentApproval?> ApproveOrDeclineAsync(int id, bool isApproved, string userId);  // New method
 
     }
 }

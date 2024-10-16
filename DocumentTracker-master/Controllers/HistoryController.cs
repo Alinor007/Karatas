@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DocumentTracker.Models;
 using DocumentTrackerWebApi.DTOs;
+using DocumentTrackerWebApi.Extension;
 using DocumentTrackerWebApi.Interfaces;
 using DocumentTrackerWebApi.Mappers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentTrackerWebApi.Controllers
@@ -16,10 +19,12 @@ namespace DocumentTrackerWebApi.Controllers
     public class HistoryController:ControllerBase
     {
          private readonly IHistoryRepository _historyRepo;
+        private readonly UserManager<User> _userManager; // Add UserManager
 
-        public HistoryController(IHistoryRepository historyRepo)
+        public HistoryController(IHistoryRepository historyRepo,UserManager<User> userManager )
         {
             _historyRepo = historyRepo;
+            _userManager = userManager;
         }
 
         // GET: api/history
@@ -47,12 +52,18 @@ namespace DocumentTrackerWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<HistoryDTO>> CreateHistory([FromBody] CreateHistoryDTO createHistoryDto)
         {
+            var username = User.GetUsername();
+            var AppUser = await _userManager.FindByEmailAsync(username);
+
+           
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             var historyModel = createHistoryDto.ToHistoryFromCreateDTO();
+            historyModel.UserId = AppUser.Id;
             await _historyRepo.AddAsync(historyModel);
 
             var historyDto = historyModel.ToHistoryDto();

@@ -10,6 +10,7 @@ namespace DocumentTrackerWebApi.DTOs
          public int Id { get; set; }
         public int? DocumentId { get; set; }
         public int? OfficeId { get; set; }
+        public int Stage {  get; set; }
         public string Comments { get; set; }
         public string Remarks { get; set; }
         public DateTime Created { get; set; }

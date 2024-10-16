@@ -19,5 +19,8 @@ namespace DocumentTrackerWebApi.DTOs
         public string Remarks { get; set; }
 
         public DateTime Updated {  get; set; }
+
+        public int Stage { get; set; }
+
     }
 }

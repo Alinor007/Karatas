@@ -15,7 +15,7 @@ namespace DocumentTrackerWebApi.Mappers
             return new HistoryDTO
             {
                 Id = historyModel.Id,
-                UserId = historyModel.UserId,
+                CreatedBy = historyModel.User != null ? historyModel.User.Email : string.Empty,  // Handle null case
                 UserName = historyModel.User?.UserName ?? string.Empty, // Assuming navigation property is loaded
                 DocumentApprovalId = historyModel.DocumentApprovalId,
                 Remarks = historyModel.Remarks,
@@ -29,7 +29,6 @@ namespace DocumentTrackerWebApi.Mappers
         {
             return new History
             {
-                UserId = historyDTO.UserId,
                 DocumentApprovalId = historyDTO.DocumentApprovalId,
                 Remarks = historyDTO.Remarks,
                 Created = DateTime.UtcNow, // Set by server

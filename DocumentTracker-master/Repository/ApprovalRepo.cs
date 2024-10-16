@@ -11,10 +11,12 @@ namespace DocumentTrackerWebApi.Repository
     public class ApprovalRepo : IApproval
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHistoryRepository _historyRepository;
 
-        public ApprovalRepo(ApplicationDbContext context)
+        public ApprovalRepo(ApplicationDbContext context, IHistoryRepository historyRepository)
         {
             _context = context;
+            _historyRepository = historyRepository;
         }
 
         public async Task<DocumentApproval> AddAsync(DocumentApproval approval)
@@ -37,13 +39,13 @@ namespace DocumentTrackerWebApi.Repository
             return approval;
         }
 
-        public async Task<List<DocumentApproval>> GetAllAsync() 
+        public async Task<List<DocumentApproval>> GetAllAsync()
         {
 
-         return await _context.DocumentApprovals
-                             .Include(d => d.Document)
-                             .Include(d => d.Office)
-                             .ToListAsync();
+            return await _context.DocumentApprovals
+                                .Include(d => d.Document)
+                                .Include(d => d.Office)
+                                .ToListAsync();
         }
 
         public async Task<DocumentApproval?> GetByIdAsync(int id)
@@ -76,7 +78,7 @@ namespace DocumentTrackerWebApi.Repository
             return await _context.DocumentApprovals.AnyAsync(e => e.Id == id);
         }
 
-        public async Task<DocumentApproval?> ApproveOrDeclineAsync(int id, bool isApproved)
+        public async Task<DocumentApproval?> ApproveOrDeclineAsync(int id, bool isApproved, string userId)
         {
             var approval = await _context.DocumentApprovals.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -87,29 +89,50 @@ namespace DocumentTrackerWebApi.Repository
 
             if (isApproved)
             {
+                approval.OfficeId++;
+
                 // Increase office ID by 1, but wrap around if it reaches 5
-                approval.OfficeId = (approval.OfficeId >= 5) ? 1 : approval.OfficeId + 1;
+                if (approval.OfficeId >= 6)
+                {
+                    approval.OfficeId = 1;
+                }
+                   await CreateHistoryRecord(userId, id, "Approved");
             }
+
             else
             {
                 // Decrease office ID, but if it reaches 1, return "Declined"
                 if (approval.OfficeId <= 1)
                 {
-                    approval.Remarks = "Declined";
                     return approval;
                 }
                 else
                 {
-                    approval.OfficeId -= 1;
+                    approval.OfficeId--;
+                    await CreateHistoryRecord(userId, id, "Declined");
                 }
             }
 
-            approval.Updated = DateTime.UtcNow;
-            _context.DocumentApprovals.Update(approval);
-            await _context.SaveChangesAsync();
+                approval.Updated = DateTime.UtcNow;
+                _context.DocumentApprovals.Update(approval);
+                await _context.SaveChangesAsync();
 
-            return approval;
+                return approval;
+            
+        }
+        private async Task CreateHistoryRecord(string userId, int documentApprovalId, string remarks)
+        {
+            var history = new History
+            {
+                UserId = userId,
+                DocumentApprovalId = documentApprovalId,
+                Remarks = $"{remarks}",
+                Created = DateTime.UtcNow,
+                Updated = DateTime.UtcNow
+            };
+
+            await _historyRepository.AddAsync(history);
         }
     }
-    }
+}
 

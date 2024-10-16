@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\msu-wone\\source\\repos\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {}
+    "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\msu-wone\\source\\repos\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {
+    "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\msu-wone\\source\\repos\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
+        "projectUniqueName": "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
         "projectName": "DocumentTrackerWebApi",
-        "projectPath": "C:\\Users\\msu-wone\\source\\repos\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
-        "packagesPath": "C:\\Users\\msu-wone\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\msu-wone\\source\\repos\\DocumentTracker-master\\obj\\",
+        "projectPath": "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
+        "packagesPath": "C:\\Users\\Commander\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\msu-wone\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Commander\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +38,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -104,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -19,5 +19,8 @@ namespace DocumentTrackerWebApi.DTOs
         
         [StringLength(1000)]
         public string Remarks { get; set; }
+
+        public int Stage { get; set; }
+
     }
 }

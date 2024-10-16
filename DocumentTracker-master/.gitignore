@@ -1,0 +1,15 @@
+# Ignore Visual Studio temporary files, build results, and
+# include the .vs folder
+.vs/
+
+# Ignore build output
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# Ignore other OS/IDE-specific files
+.DS_Store
+Thumbs.db
