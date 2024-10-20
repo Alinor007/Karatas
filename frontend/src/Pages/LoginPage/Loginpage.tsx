@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../Context/useAuth";
 import { useForm } from "react-hook-form";
+import logo from '../../Logo-.png'
       
 type Props = {}
 type LoginFormsInputs = {
@@ -27,54 +28,59 @@ const Loginpage = (props: Props) => {
       loginUser(form.userName, form.password);
     };
     return (
-      <section className="flex w-full h-screen">
-        <div className='flex items-center justify-center w-full lg:w-1/2'>
-      <div className='px-10 py-20 bg-white border-gray-100 rounded-3xl'>
-          <h1 className='text-5xl font-semibold'>Welcome back!</h1>
-              <h1 className='mt-4 text-lg font-medium text-gray-500'>
-                Sign in to your account
-              </h1>
+          <div className=" flex items-center justify-center h-screen">
+            <div className="rounded-3xl shadow-lg flex w-3/4 max-w-4xl">
+            <div className="w-1/2 flex flex-col items-center justify-center bg-gray-100 p-10 rounded-s-3xl">
+                        <img src={logo} className="w-60 h-60"/>
+                  <h1 className="mt-4 text-2xl font-bold text-indigo-800" >Karatas</h1>
+            </div>
 
-              <form  className='mt-8'
+            <div className="w-1/2 p-10 flex flex-col justify-center">
+          <h1 className='text-2xl font-bold text-indigo-800 mb-2 text-center'>Welcome back!</h1>
+              <h3 className='text-sm font-medium text-gray-500 mb-8 text-center'>
+                Sign in to your account
+              </h3> 
+
+              <form  className='mb-2 '
                 onSubmit={handleSubmit(handleLogin)}
               >
                 <div>
-                  {/* <label
+                  <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Username
-                  </label> */}
+                    Email
+                  </label>
                   <input
                     type="text"
                     id="username"
-                    className='w-full p-4 mt-5 bg-transparent border-b-4 border-gray-200 '
-                    placeholder="Email"
+                    className='w-full p-2 text-sm bg-transparent border-b-4 border-gray-200 '
+                    placeholder="Enter your Email"
                     {...register("userName")}
                   />
                   {errors.userName ? (
-                    <p className="text-white">{errors.userName.message}</p>
+                    <p className="text-red-500  text-sm">{errors.userName.message}</p>
                   ) : (
                     ""
                   )}
                 </div>
                 <div>
-                  {/* <label
+                  <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mt-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Password
-                  </label> */}
+                  </label>
                   <input
                     type="password"
                     id="password"
                     placeholder="••••••••"
-                   className='w-full p-4 mt-5 bg-transparent border-b-4 border-gray-200 '
+                   className='w-full p-2 bg-transparent border-b-4 border-gray-200 '
 
                     {...register("password")}
                   />
                   {errors.password ? (
-                    <p className="text-white">{errors.password.message}</p>
+                    <p className="text-red-500  text-sm">{errors.password.message}</p>
                   ) : (
                     ""
                   )}
@@ -82,19 +88,19 @@ const Loginpage = (props: Props) => {
                 <div className="flex items-center justify-between">
                   <a
                     href="#"
-                    className="text-sm text-white font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="text-sm mt-3 text-indigo-800 font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Forgot password?
                   </a>
                 </div>
-            <div className='flex flex-col mt-8 gap-y-4'>
+            <div className='flex flex-col mt-4 gap-y-4'>
                 <button
                 type="submit"
-                className='py-3 text-lg text-white bg-violet-500 rounded-3xl'>
+                className='w-full bg-indigo-800 text-white py-3 rounded-3xl font-bold hover:bg-indigo-500 transition duration-300'>
                 Sign in
                 </button>
             </div>
-                <div className='flex justify-center mt-8 text-center'>
+                <div className='flex justify-center mt-3 text-center'>
 
                 <p className='text-base font-medium'>
                   Don’t have an account yet?{" "}
@@ -108,12 +114,8 @@ const Loginpage = (props: Props) => {
                 </div>
               </form>
             </div>
-          </div>
-            <div className="relative items-center justify-center hidden w-1/2 h-full bg-gray-200 lg:flex">
-                <div className='rounded-full w-60 h-60 bg-gradient-to-tr from-violet-500 to-pink-500 animate-bounce'/>
-
             </div>
-      </section>
+            </div>
     );
   
 }
