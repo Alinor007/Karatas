@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DocumentTrackerWebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+855553b2ed7d22ab31add3d3ca22f61612ba27a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05aa203eaa6ac80edec571de83603ffa35bee7ab")]
 [assembly: System.Reflection.AssemblyProductAttribute("DocumentTrackerWebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DocumentTrackerWebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

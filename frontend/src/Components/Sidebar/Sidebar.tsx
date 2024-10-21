@@ -80,7 +80,7 @@ const Sidebar = (props: Props) => {
         </nav>
       </div>
 
-      <div className="p-4">HOMEPAGE</div>
+      
     </div>
   );
 };
