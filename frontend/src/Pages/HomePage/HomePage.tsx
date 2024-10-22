@@ -1,17 +1,16 @@
 import React from 'react'
-import Sidebar from '../../Components/Sidebar/Sidebar'
-import Dashboard from '../../Components/Dashboard/Dashboard'
+import Hero from '../../Components/Hero/Hero'
+import Navbar from '../../Components/Navbar/Navbar'
+
 
 type Props = {}
 
 const HomePage = (props: Props) => {
   return (
-        <>
-        <div className='flex'>
-        <Sidebar/>
-        <Dashboard/>
+        <div className='font-poppins'>
+          <Navbar/>
+      <Hero/>
         </div>
-        </>
   )
 }
 

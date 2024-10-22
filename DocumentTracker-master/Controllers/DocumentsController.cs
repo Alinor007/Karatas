@@ -34,7 +34,12 @@ namespace DocumentTrackerWebApi.Controllers
             _userManager = userManager;
         }
 
-
+        [HttpGet("total")]
+        public async Task<ActionResult<int>> GetTotalDocuments()
+        {
+            var totalDocuments = await _documentRepo.CountAsync();
+            return Ok(new { TotalDocuments = totalDocuments });
+        }
         // GET: api/documents
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetAll()

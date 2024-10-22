@@ -106,8 +106,13 @@ namespace DocumentTrackerWebApi.Repository
         {
             return await _context.Documents.AnyAsync(d => d.Id == id);
         }
+        public async Task<int> CountAsync()
+        {
+            return await _context.Documents.CountAsync();
+        }
 
-    
-        
+
+
+
     }
 }

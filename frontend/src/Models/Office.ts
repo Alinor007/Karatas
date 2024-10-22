@@ -4,7 +4,7 @@ export type OfficeGet = {
 
   };
   
-  export type OFficePost = {
+  export type OfficePost = {
     name: string;
     discription: string;
   };

@@ -36,7 +36,7 @@ const Loginpage = (props: Props) => {
             </div>
 
             <div className="w-1/2 p-10 flex flex-col justify-center">
-          <h1 className='text-2xl font-bold text-indigo-800 mb-2 text-center'>Welcome back!</h1>
+            <h1 className='text-2xl font-bold text-indigo-800 mb-2 text-center'>Welcome back!</h1>
               <h3 className='text-sm font-medium text-gray-500 mb-8 text-center'>
                 Sign in to your account
               </h3> 

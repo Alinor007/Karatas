@@ -17,5 +17,7 @@ namespace DocumentTrackerWebApi.Interfaces
         Task<Document?> UpdateAsync(int id,UpdateDocumentDTO updatedocumentDTO);
         Task<Document?> DeleteAsync(int id);
         Task<bool> ExistsAsync(int id);
+        Task<int> CountAsync();  // Add this method
+                                  
     }
 }

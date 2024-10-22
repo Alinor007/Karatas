@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {}
+    "C:\\Users\\Commander\\Downloads\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {
+    "C:\\Users\\Commander\\Downloads\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
+        "projectUniqueName": "C:\\Users\\Commander\\Downloads\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
         "projectName": "DocumentTrackerWebApi",
-        "projectPath": "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
+        "projectPath": "C:\\Users\\Commander\\Downloads\\Karatas\\DocumentTracker-master\\DocumentTrackerWebApi.csproj",
         "packagesPath": "C:\\Users\\Commander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Commander\\Downloads\\DocumentTracker\\Karatas\\DocumentTracker-master\\obj\\",
+        "outputPath": "C:\\Users\\Commander\\Downloads\\Karatas\\DocumentTracker-master\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
