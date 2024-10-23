@@ -3,7 +3,11 @@ import App from "../App";
 import HomePage from "../Pages/HomePage/HomePage";
 import LoginPage from "../Pages/LoginPage/Loginpage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
-import Office from ".././Components/Offices/Offices"
+import MainPage from "../Pages/MainPage/MainPage";
+import ProtectedRoute from "./ProtectedRoute";
+import Offices from "../Components/Offices/Offices";
+import Document from "../Components/Documents/Document";
+import Dashboard from "../Components/Dashboard/Dashboard";
 
 
 export const router = createBrowserRouter([
@@ -12,9 +16,21 @@ export const router = createBrowserRouter([
         element: <App />,
         children: [
           { path: "", element: <HomePage /> },
-          { path: "login", element: <LoginPage /> },
+          { path: "/login", element: <LoginPage /> },
           { path: "register", element: <RegisterPage /> },
-          { path: "register", element: <RegisterPage /> },
+          {
+        path: "Page",
+        element: (
+            <MainPage />
+        ),
+        children: [
+          { path: "Offices", element: <Offices/> },
+          { path: "Documents", element: <Document/> },
+          { path: "Dashboard", element: <Dashboard/> },
+          
+        
+        ],
+      }
           
         ]
 

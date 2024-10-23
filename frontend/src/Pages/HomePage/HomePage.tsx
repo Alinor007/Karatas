@@ -7,9 +7,9 @@ type Props = {}
 
 const HomePage = (props: Props) => {
   return (
-        <div className='font-poppins'>
+    <div className='font-poppins'>
           <Navbar/>
-      <Hero/>
+          <Hero/>
         </div>
   )
 }

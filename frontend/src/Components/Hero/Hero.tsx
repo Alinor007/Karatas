@@ -1,6 +1,7 @@
 // src/components/Hero.tsx
 import React from 'react';
 import astro from '../../Astronaut.png'
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
@@ -16,12 +17,12 @@ const Hero: React.FC = () => {
               Efficiently manage and track your documents through every office step.
             </p>
             <div className="mt-6">
-              <a
-                href="#get-started"
+              <Link
+                to="/"
                 className="bg-white text-blue-500 py-2 px-6 rounded-lg font-semibold hover:bg-gray-100"
               >
                 Get Started
-              </a>
+              </Link>
             </div>
           </div>
           <div className="absolute h-64 w-64  top-0 right-0 py-4 duration-1000 ease-in-out   ">

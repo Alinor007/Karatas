@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { MdExpandLess, MdExpandMore, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { SlGraph } from "react-icons/sl";
 import { IoDocuments,IoTrash } from "react-icons/io5";
 import { ImUsers,ImHistory } from "react-icons/im";
@@ -12,7 +12,10 @@ type Props = {};
 
 const Sidebar = (props: Props) => {
   const [open, setOpen] = useState(true);
+  const [documentsOpen, setDocumentsOpen] = useState(false); // State for Documents dropdown
+  const [officesOpen, setOfficesOpen] = useState(false); // State for Offices dropdown
   const location = useLocation(); // Get the current route
+
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -43,44 +46,75 @@ const Sidebar = (props: Props) => {
         {/* Add your sidebar links/icons below */}
         <nav className="mt-10 justify-between content-center text-gray-500 text-sm">
         <Link
-            to="/"
+            to="Dashboard"
             className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
-              isActive("/") ? "font-medium text-indigo-900" : ""
+              isActive("Dashboard") ? "font-medium text-indigo-900" : ""
             }`}
           ><BiSolidDashboard />{open && <span>Dashboard</span>}
         </Link>
-       <Link 
-            to="/table"
-            className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
+        <div>
+            <div
+              className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg cursor-pointer ${
                 isActive("/documents") ? "font-medium text-indigo-900" : ""
               }`}
-            > <IoDocuments />{open && <span>Documents</span>}
-          </Link>
+              onClick={() => setDocumentsOpen(!documentsOpen)}
+            >
+              <IoDocuments />
+              {open && (
+                <>
+                  <span>Documents</span>
+                  {documentsOpen ? <MdExpandLess /> : <MdExpandMore />}
+                </>
+              )}
+            </div>
+            {documentsOpen && open && (
+              <div className="pl-8 flex flex-col space-y-2 text-sm">
+                <Link to="documents/create" className="hover:text-indigo-900">Create </Link>
+                <Link to="documents/incoming" className="hover:text-indigo-900">Incoming </Link>
+                <Link to="documents/my" className="hover:text-indigo-900">List</Link>
+              </div>
+            )}
+          </div>
           <Link 
-                to="/users" 
+                to="users" 
                 className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
                     isActive("/manageUser") ? "font-medium text-indigo-900" : ""
                   }`}><ImUsers />{open && <span>Manage Users</span>}
           </Link>
-          <Link to="/recycleBin"
+          <Link to="recycleBin"
                 className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
                     isActive("/recycleBin") ? "font-medium text-indigo-900" : ""
                   }`}><IoTrash /> {open && <span>Recycle bin</span>}
           </Link>
-          <Link to="/history"
+          <Link to="history"
                 className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
                     isActive("/history") ? "font-medium text-indigo-900" : ""
                   }`}><ImHistory /> {open && <span>Histories</span>}
           </Link>
-          <Link to="/offices"
-                className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
-                    isActive("/Offices") ? "font-medium text-indigo-900" : ""
-                  }`}><HiMiniBuildingOffice2 /> {open && <span>Offices</span>}
-          </Link>
+          <div>
+            <div
+              className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg cursor-pointer ${
+                isActive("/offices") ? "font-medium text-indigo-900" : ""
+              }`}
+              onClick={() => setOfficesOpen(!officesOpen)}
+            >
+              <HiMiniBuildingOffice2 />
+              {open && (
+                <>
+                  <span>Offices</span>
+                  {officesOpen ? <MdExpandLess /> : <MdExpandMore />}
+                </>
+              )}
+            </div>
+            {officesOpen && open && (
+              <div className="pl-8 flex flex-col space-y-2">
+                <Link to="offices/create" className="hover:text-indigo-900">Create </Link>
+                <Link to="offices" className="hover:text-indigo-900">List</Link>
+              </div>
+            )}
+          </div>
         </nav>
       </div>
-
-      
     </div>
   );
 };
