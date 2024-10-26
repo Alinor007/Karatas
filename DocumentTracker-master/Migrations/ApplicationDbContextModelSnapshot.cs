@@ -156,6 +156,9 @@ namespace DocumentTrackerWebApi.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("OfficeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -184,6 +187,8 @@ namespace DocumentTrackerWebApi.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("OfficeId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -256,13 +261,13 @@ namespace DocumentTrackerWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a90b203c-b28b-418d-9222-61c3691921a8",
+                            Id = "b545d6c3-fb48-4073-9a8a-9981a4c50ae3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "134eb5a2-5cd6-4441-9770-fa085c576d25",
+                            Id = "13c5b290-c4d9-4d7a-99c8-f546c4e6207c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -430,6 +435,17 @@ namespace DocumentTrackerWebApi.Migrations
                     b.Navigation("DocumentApproval");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DocumentTracker.Models.User", b =>
+                {
+                    b.HasOne("DocumentTrackerWebApi.Models.Office", "Office")
+                        .WithMany()
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Office");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

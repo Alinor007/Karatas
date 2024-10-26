@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DocumentTrackerWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241012130748_dbinit")]
-    partial class dbinit
+    [Migration("20241024043702_AddOfficeInDoc")]
+    partial class AddOfficeInDoc
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,6 +159,9 @@ namespace DocumentTrackerWebApi.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("OfficeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -187,6 +190,8 @@ namespace DocumentTrackerWebApi.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("OfficeId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -259,13 +264,13 @@ namespace DocumentTrackerWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a415ed89-eeb6-4e03-b9bc-9a28e2df4918",
+                            Id = "b545d6c3-fb48-4073-9a8a-9981a4c50ae3",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "267440c7-e777-45ea-8e27-2961f127766e",
+                            Id = "13c5b290-c4d9-4d7a-99c8-f546c4e6207c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -433,6 +438,17 @@ namespace DocumentTrackerWebApi.Migrations
                     b.Navigation("DocumentApproval");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DocumentTracker.Models.User", b =>
+                {
+                    b.HasOne("DocumentTrackerWebApi.Models.Office", "Office")
+                        .WithMany()
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Office");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

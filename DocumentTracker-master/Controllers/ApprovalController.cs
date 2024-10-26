@@ -10,7 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DocumentTrackerWebApi.Controllers
 {
-    [Route("api/DocumentApproval")]
+      [Route("api/[controller]")]
+]
     [ApiController]
 
 

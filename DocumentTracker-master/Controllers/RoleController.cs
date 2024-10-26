@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentTrackerWebApi.Controllers
 {
-    [Route("api/Role")]
+    [Route("api/[controller]")]
+
     [ApiController]
 
     public class RoleController:ControllerBase

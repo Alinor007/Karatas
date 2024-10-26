@@ -11,15 +11,15 @@ namespace DocumentTracker.Models
 
         // public string? RoleId { get; set; }
 
-        // public int OfficeId { get; set; }
+        public int OfficeId { get; set; }
 
         // public string Name { get; set; } =string.Empty;
-        
+
         // public DateTime BirthDate { get; set; }
 
         // public virtual Role? Role { get; set; }
 
-        // public virtual Office? Office { get; set; }
+        public virtual Office? Office { get; set; }
 
         // public DateTime Created { get; set; }
 

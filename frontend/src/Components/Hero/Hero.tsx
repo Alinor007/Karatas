@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
-    <section className="bg-gradient-to-r from-blue-500 to-green-400 text-white py-20">      
+    <section className="bg-gradient-to-r from-blue-500 to-pink-400 text-white py-20">      
       <div className="container mx-auto px-6 text-center md:text-left ">
         <div className="md:flex items-center relative">
           <div className="md:w-1/2">

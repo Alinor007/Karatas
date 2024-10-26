@@ -3,32 +3,25 @@ import { OfficeGet } from '../../Models/Office';
 import { officePostAPI,officeGetAPI } from "../../Services/OfficeService";
 import { toast } from "react-toastify";
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance';
 
 
-type Props = {
-  Symbol: string;
-};
-
-type OfficeFormInputs = {
-  name: string;
-  description: string;
-};
 
 
-const Offices= ({ Symbol }: Props) => {
+const Offices = () => {
 
-  const [messages, setMessages] = useState<OfficeGet[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { Symbol } = useParams<{ Symbol: string }>(); // Extract Symbol from route parameters
+  const [offices, setOffices] = useState<OfficeGet[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  
   const getMyMessages = async () => {
     try {
       setLoading(true);
-      const response = await axios.get<OfficeGet[]>(api + `${symbol}`, {
-        name: name,
-        discription: discription,
-      });
+      const response = await axiosInstance.get<OfficeGet[]>(MY_MESSAGE_URL);
       const { data } = response;
-      setMessages(data);
+      setOffices(data);
       setLoading(false);
     } catch (error) {
       toast.error('An Error happened. Please Contact admins');
@@ -36,15 +29,35 @@ const Offices= ({ Symbol }: Props) => {
     }
   };
 
+
+  // Fetch office data when component mounts
   useEffect(() => {
-    getMyMessages();
-  }, []);
+    if (Symbol) {
+      const fetchOffices = async () => {
+        setLoading(true);
+        try {
+          const data = await officeGetAPI(Symbol);
+          if (data) {
+            setOffices([data]);
+          } else {
+            toast.error("No data found.");
+          }
+        } catch (error) {
+          toast.error("Failed to fetch office data.");
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchOffices();
+    }
+  }, [Symbol]);
 
-
- 
 
   return (
     <div className="overflow-x-auto">
+       {loading ? (
+        <p>Loading...</p>
+      ) : (
     <table className="min-w-full border border-gray-300">
       <thead>
         <tr className="bg-gray-200">
@@ -54,21 +67,18 @@ const Offices= ({ Symbol }: Props) => {
         </tr>
       </thead>
       <tbody>
-        
+      {offices.map((office, index) => (
           <tr >
             <td className="border border-gray-300 px-4 py-2">Dean</td>
             <td className="border border-gray-300 px-4 py-2">CICS Dean</td>
             <td className="border border-gray-300 px-4 py-2">january 12 ,2020</td>
           </tr>
-
+   ))}
       </tbody>
     </table>
+       )}
   </div>
   )
 }
 
 export default Offices
-
-function setLoading(arg0: boolean) {
-    throw new Error('Function not implemented.');
-  }

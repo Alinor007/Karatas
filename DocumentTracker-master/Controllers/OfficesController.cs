@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DocumentTrackerWebApi.Controllers
 {
-    [Route("api/Office")]
+    [Route("api/[controller]")]
     [ApiController]
 
     public class OfficesController:ControllerBase

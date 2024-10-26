@@ -19,9 +19,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
     namespace DocumentTrackerWebApi.Controllers
-    {
-        [Route("api/Account")]
-        [ApiController]
+{
+    [Route("api/[controller]")]
+
+    [ApiController]
 
     public class AccountController:ControllerBase
         {

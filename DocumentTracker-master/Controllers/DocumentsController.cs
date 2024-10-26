@@ -16,7 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentTrackerWebApi.Controllers
 {
-    [Route("api/Document")]
+    [Route("api/[controller]")]
+
     [ApiController]
 
 

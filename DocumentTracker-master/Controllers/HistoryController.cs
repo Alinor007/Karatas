@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentTrackerWebApi.Controllers
 {
-    [Route("api/History")]
+    [Route("api/[controller]")]
+
     [ApiController]
 
 
