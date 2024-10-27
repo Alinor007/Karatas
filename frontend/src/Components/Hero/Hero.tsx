@@ -1,7 +1,10 @@
 // src/components/Hero.tsx
 import React from 'react';
 import astro from '../../Astronaut.png'
+import Moon from '../../Assets/Moon.png'
 import { Link } from 'react-router-dom';
+import Astoraut from '../../Assets/Animation - 1730007686399.json'
+import Lottie from "lottie-react";
 
 const Hero: React.FC = () => {
   return (
@@ -25,8 +28,11 @@ const Hero: React.FC = () => {
               </Link>
             </div>
           </div>
-          <div className="absolute h-64 w-64  top-0 right-0 py-4 duration-1000 ease-in-out   ">
-            <img  src={astro} alt="" />
+          <div className="h-64 w-64 duration-1000 ease-in-out animate-floating flex">
+          <Lottie animationData={Astoraut} loop={true} />         
+          </div>
+          <div className='h-64 w-64 absolute top-20 right-16 py-0'>
+          <img src={Moon} alt="" />
           </div>
         </div>
       </div>

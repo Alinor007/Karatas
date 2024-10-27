@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdExpandLess, MdExpandMore, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { SlGraph } from "react-icons/sl";
-import { IoDocuments,IoTrash } from "react-icons/io5";
+import { IoDocuments,IoExitOutline,IoTrash } from "react-icons/io5";
 import { ImUsers,ImHistory } from "react-icons/im";
 import { BiSolidDashboard } from "react-icons/bi";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import Logo from "../../Logo-.png"; // Make sure the path is correct
+import IconAdmin from "../../Assets/Admin Icon.png"
 
 type Props = {};
 
@@ -25,7 +26,7 @@ const Sidebar = (props: Props) => {
       <div
         className={`${
           open ? "w-64" : "w-20"
-        } h-screen duration-300 flex flex-col p-5 pt-8 bg-stone-100 shadow-sm relative`}>
+        } h-screen fixed duration-300 flex flex-col p-5 pt-8 bg-stone-100 shadow-sm relative`}>
              <button
           className="absolute cursor-pointer text-lg bg-indigo-100 text-indigo-800 hover:bg-indigo-200 rounded-full -right-4 top-9 w-7 h-7 border-2 border-indigo-600 items-center justify-center"
           onClick={() => setOpen(!open)}
@@ -36,6 +37,7 @@ const Sidebar = (props: Props) => {
             }`}
           />
         </button>
+        <div className="flex flex-col flex-grow">
         <div className="flex gap-x-4 items-center">
                 <img src={Logo} alt="Logo" className={"w-16 cursor-pointer duration-300"} />
                 <h1 className={`text-indigo-700 origin-left font-medium text-xl duration-300 ${!open && "scale-0"}`}>
@@ -47,7 +49,7 @@ const Sidebar = (props: Props) => {
         <nav className="mt-10 justify-between content-center text-gray-500 text-sm">
         <Link
             to="Dashboard"
-            className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
+            className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-800${
               isActive("Dashboard") ? "font-medium text-indigo-900" : ""
             }`}
           ><BiSolidDashboard />{open && <span>Dashboard</span>}
@@ -69,31 +71,26 @@ const Sidebar = (props: Props) => {
             </div>
             {documentsOpen && open && (
               <div className="pl-8 flex flex-col space-y-2 text-sm">
-                <Link to="documents/create" className="hover:text-indigo-900">Create </Link>
-                <Link to="documents/incoming" className="hover:text-indigo-900">Incoming </Link>
-                <Link to="documents/my" className="hover:text-indigo-900">List</Link>
+                <Link to="documents/create" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Create </Link>
+                <Link to="documents/incoming" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Incoming </Link>
+                <Link to="documents/my" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
               </div>
             )}
           </div>
-          <Link 
-                to="users" 
-                className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
-                    isActive("/manageUser") ? "font-medium text-indigo-900" : ""
-                  }`}><ImUsers />{open && <span>Manage Users</span>}
-          </Link>
+      
           <Link to="recycleBin"
-                className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
+                className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lghover:text-indigo-900 ${
                     isActive("/recycleBin") ? "font-medium text-indigo-900" : ""
                   }`}><IoTrash /> {open && <span>Recycle bin</span>}
           </Link>
           <Link to="history"
-                className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg ${
+                className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
                     isActive("/history") ? "font-medium text-indigo-900" : ""
                   }`}><ImHistory /> {open && <span>Histories</span>}
           </Link>
           <div>
             <div
-              className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg cursor-pointer ${
+              className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg cursor-pointer hover:text-indigo-900 ${
                 isActive("/offices") ? "font-medium text-indigo-900" : ""
               }`}
               onClick={() => setOfficesOpen(!officesOpen)}
@@ -108,13 +105,39 @@ const Sidebar = (props: Props) => {
             </div>
             {officesOpen && open && (
               <div className="pl-8 flex flex-col space-y-2">
-                <Link to="offices/create" className="hover:text-indigo-900">Create </Link>
-                <Link to="offices" className="hover:text-indigo-900">List</Link>
+                <Link to="offices/create" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Create </Link>
+                <Link to="offices" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
               </div>
             )}
           </div>
+          <div className="mt-9 border-gray-200 border-b-2 border-t-2">
+          <Link 
+                to="users" 
+                className={`flex items-center p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
+                    isActive("/manageUser") ? "font-medium text-indigo-900" : ""
+                  }`}><ImUsers />{open && <span>Manage Users</span>}
+          </Link>
+            <div className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
+                      isActive("/history") ? "font-medium text-indigo-900" : ""
+                    }`}>
+            <IoExitOutline />{open && <span>Logout</span>}
+            </div>
+ 
+          </div>
+          
         </nav>
+        </div>
+        <footer className={`flex items-center pt-5 pb-5 ${open ? "space-x-4" : "justify-center"}`}>
+          <img src={IconAdmin} alt="Admin Icon" className={`rounded-full ${open ? "h-12 w-12" : " w-8 h-8"}`} />
+          {open && (
+            <div>
+              <p className="font-semibold text-sm">Alinor Abdulgafor</p>
+              <p className="text-xs">alinor@example.com</p>
+            </div>
+          )}
+        </footer>
       </div>
+     
     </div>
   );
 };

@@ -1,36 +1,16 @@
 import React from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAuth } from "../../Context/useAuth";
 import { useForm } from "react-hook-form";
 import logo from '../../Logo-.png'
       
 type Props = {}
-type LoginFormsInputs = {
-    userName: string;
-    password: string;
-  };
-  
-  const validation = Yup.object().shape({
-    userName: Yup.string().required("Username is required"),
-    password: Yup.string().required("Password is required"),
-  });
-
 const Loginpage = (props: Props) => {
-    const { loginUser } = useAuth();
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm<LoginFormsInputs>({ resolver: yupResolver(validation) });
-  
-    const handleLogin = (form: LoginFormsInputs) => {
-      loginUser(form.userName, form.password);
-    };
+   
     return (
           <div className=" flex items-center justify-center h-screen">
             <div className="rounded-3xl shadow-lg flex w-3/4 max-w-4xl">
-            <div className="w-1/2 flex flex-col items-center justify-center bg-gray-100 p-10 rounded-s-3xl">
+            <div className="w-1/2 flex flex-col items-center justify-center border-r-4 border-gray-300 p-10 rounded-s-3xl">
                         <img src={logo} className="w-60 h-60"/>
                   <h1 className="mt-4 text-2xl font-bold text-indigo-800" >Karatas</h1>
             </div>
@@ -42,7 +22,7 @@ const Loginpage = (props: Props) => {
               </h3> 
 
               <form  className='mb-2 '
-                onSubmit={handleSubmit(handleLogin)}
+                
               >
                 <div>
                   <label
@@ -56,13 +36,9 @@ const Loginpage = (props: Props) => {
                     id="username"
                     className='w-full p-2 text-sm bg-transparent border-b-4 border-gray-200 '
                     placeholder="Enter your Email"
-                    {...register("userName")}
+                  
                   />
-                  {errors.userName ? (
-                    <p className="text-red-500  text-sm">{errors.userName.message}</p>
-                  ) : (
-                    ""
-                  )}
+                 
                 </div>
                 <div>
                   <label
@@ -77,13 +53,9 @@ const Loginpage = (props: Props) => {
                     placeholder="••••••••"
                    className='w-full p-2 bg-transparent border-b-4 border-gray-200 '
 
-                    {...register("password")}
+                   
                   />
-                  {errors.password ? (
-                    <p className="text-red-500  text-sm">{errors.password.message}</p>
-                  ) : (
-                    ""
-                  )}
+                
                 </div>
                 <div className="flex items-center justify-between">
                   <a
@@ -96,7 +68,7 @@ const Loginpage = (props: Props) => {
             <div className='flex flex-col mt-4 gap-y-4'>
                 <button
                 type="submit"
-                className='w-full bg-indigo-800 text-white py-3 rounded-3xl font-bold hover:bg-indigo-500 transition duration-300'>
+                className='w-full bg-gradient-to-r from-blue-500 to-pink-400 text-white py-3 rounded-3xl font-bold hover:bg-indigo-500 transition duration-300'>
                 Sign in
                 </button>
             </div>

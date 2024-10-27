@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import Tile from "../Tile/Tile";
+import DataChart from "../Tile/DataChart";
 
 interface Props  {
  
@@ -33,7 +34,7 @@ const Dashboard =({}: Props) => {
     }, []);
 
   return (
-    <div className="flex-1 p-6  ">
+    <div className=" flex-1 p-6  ">
       <h1 className="text-3xl font-bold mb-4 ">Document Tracker Dashboard</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
@@ -42,28 +43,17 @@ const Dashboard =({}: Props) => {
         <Tile title="Total of Users" subTitle="159"></Tile>
         <Tile title="Total Office" subTitle="11"></Tile>
         </div>
-        
+      <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 mt-4">
-         {/* Recent Activity */}
-        <div className="bg-white p-6 shadow rounded-3xl">
-          <h3 className="text-sm font-semibold mb-4">Recent Activity</h3>
-          <ul className="text-gray-600">
-            <li>Document 123 approved by Dean</li>
-            <li>Document 124 submitted by Chairperson</li>
-            <li>Document 125 reviewed by President</li>
-          </ul>
-        </div>
+       
          {/* Status Breakdown */}
          <div className="bg-white p-6 shadow rounded-3xl">
-          <h3 className="text-sm font-semibold mb-4">Status Breakdown in chart</h3>
-          <p className="text-sm font-medium">Approved: 200</p>
-          <p className="text-sm font-medium">In Review: 75</p>
-          <p className="text-sm font-medium">Rejected: 45</p>
+         <DataChart/>
         </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 mt-4">
+     
+      <div className="flex-col">
          {/* Recent Activity */}
-        <div className="bg-white p-6 shadow rounded-3xl">
+        <div className="bg-white p-6 shadow rounded-3xl h-1/2 mb-2">
           <h3 className="text-sm font-semibold mb-4">User Table</h3>
           <ul className="text-gray-600">
             <li>Alinor</li>
@@ -71,7 +61,18 @@ const Dashboard =({}: Props) => {
             <li>Hasanor </li>
           </ul>
         </div>
-    
+          {/* Recent Activity */}
+          <div className="bg-white p-6 shadow rounded-3xl h-1/2">
+          <h3 className="text-sm font-semibold mb-4">Recent Activity</h3>
+         <ul className="text-gray-600">
+            <li>Document 123 approved by Dean</li>
+            <li>Document 124 submitted by Chairperson</li>
+            <li>Document 125 reviewed by President</li>
+          </ul>
+        </div>
+
+        </div>
+      </div>
       </div>
     </div>
   )

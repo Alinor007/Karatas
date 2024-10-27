@@ -19,3 +19,5 @@ const Tile = ({ title, subTitle }: Props) => {
 };
 
 export default Tile;
+
+
