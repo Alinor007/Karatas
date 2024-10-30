@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdExpandLess, MdExpandMore, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { SlGraph } from "react-icons/sl";
 import { IoDocuments,IoExitOutline,IoTrash } from "react-icons/io5";
-import { ImUsers,ImHistory } from "react-icons/im";
+import { ImUsers } from "react-icons/im";
 import { BiSolidDashboard } from "react-icons/bi";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import Logo from "../../Logo-.png"; 
@@ -106,7 +105,7 @@ const Sidebar = (props: Props) => {
             {officesOpen && open && (
               <div className="pl-8 flex flex-col space-y-2">
                 <Link to="offices/create" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Create </Link>
-                <Link to="offices" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
+                <Link to="Offices/" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
               </div>
             )}
           </div>

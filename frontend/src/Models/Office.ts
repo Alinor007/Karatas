@@ -1,11 +1,15 @@
-export type OfficeGet = {
-    name: string;
-    discription: string;
-    createdBy: string;
+export interface Office {
+  id: number;
+  name: string;
+  stage: string;
+  description: string;
+  updated: string;
+}
 
-  };
-  
-  export type OfficePost = {
-    name: string;
-    discription: string;
-  };
+export interface CreateOfficeDTO {
+  name: string;
+  stage: string;
+  description: string;
+}
+
+export interface UpdateOfficeDTO extends CreateOfficeDTO {}

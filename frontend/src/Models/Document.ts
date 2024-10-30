@@ -1,4 +1,4 @@
-export type DocumentGet = {
+export interface Document  {
     id: number;         // Assuming you'll want to include the id when retrieving documents
     name: string;
     description: string;  // This can represent some document description field
@@ -9,7 +9,9 @@ export type DocumentGet = {
   };
   
   // Type for posting document data (to API)
-  export type DocumentPost = {
+  export interface DocumentPost {
     name: string;
     description: string;  // Description of the document when creating it
   };
+
+  export interface UpdateDocument extends DocumentPost{}
