@@ -1,22 +1,21 @@
-// src/components/Hero.tsx
 import React from 'react';
-import astro from '../../Astronaut.png'
-import Moon from '../../Assets/Moon.png'
 import { Link } from 'react-router-dom';
-import Astoraut from '../../Assets/Animation - 1730007686399.json'
 import Lottie from "lottie-react";
+import astro from '../../Astronaut.png';
+import Moon from '../../Assets/Moon.png';
+import Astoraut from '../../Assets/Animation - 1730007686399.json';
 
 const Hero: React.FC = () => {
   return (
-    <section className="bg-gradient-to-r from-blue-500 to-pink-400 text-white py-20">      
-      <div className="container mx-auto px-6 text-center md:text-left ">
-        <div className="md:flex items-center relative">
-          <div className="md:w-1/2">
-            <h1 className="text-4xl font-bold md:text-5xl">
+    <section className="bg-gradient-to-r from-blue-500 to-pink-400 text-white py-20">
+      <div className="container mx-auto px-6 text-center md:text-left">
+        <div className="flex flex-col-reverse md:flex-row items-center relative">
+          <div className="w-full md:w-1/2 mt-8 md:mt-0">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
               Karatas
             </h1>
-                <h2>Document Tracker System</h2>
-            <p className="mt-4 text-lg md:text-xl">
+            <h2 className="text-lg sm:text-xl md:text-2xl">Document Tracker System</h2>
+            <p className="mt-4 text-base sm:text-lg md:text-xl">
               Efficiently manage and track your documents through every office step.
             </p>
             <div className="mt-6">
@@ -28,12 +27,10 @@ const Hero: React.FC = () => {
               </Link>
             </div>
           </div>
-          <div className="h-64 w-64 duration-1000 ease-in-out animate-floating flex">
-          <Lottie animationData={Astoraut} loop={true} />         
+          <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 duration-1000 ease-in-out animate-floating">
+            <Lottie animationData={Astoraut} loop={true} />
           </div>
-          <div className='h-64 w-64 absolute top-20 right-16 py-0'>
-          <img src={Moon} alt="" />
-          </div>
+         
         </div>
       </div>
     </section>

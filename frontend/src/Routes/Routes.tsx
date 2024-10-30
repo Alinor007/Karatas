@@ -6,6 +6,9 @@ import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import MainPage from "../Pages/MainPage/MainPage";
 import Offices from "../Components/Offices/Offices";
 import Dashboard from "../Components/Dashboard/Dashboard";
+import DocList from "../Components/Documents/DocList";
+import Incoming from "../Components/Documents/Incoming";
+import ManageUser from "../Components/ManageUsers/ManageUser";
 
 
 export const router = createBrowserRouter([
@@ -24,6 +27,11 @@ export const router = createBrowserRouter([
         children: [
           { path: "Offices", element: <Offices/> },
           { path: "Dashboard", element: <Dashboard/> },
+          { path: "DocumentList", element: <DocList/> },
+          { path: "Incoming", element: <Incoming/> },
+          { path: "ManageUser", element: <ManageUser/> },
+
+
 
         ],
       }

@@ -6,7 +6,7 @@ import { IoDocuments,IoExitOutline,IoTrash } from "react-icons/io5";
 import { ImUsers,ImHistory } from "react-icons/im";
 import { BiSolidDashboard } from "react-icons/bi";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
-import Logo from "../../Logo-.png"; // Make sure the path is correct
+import Logo from "../../Logo-.png"; 
 import IconAdmin from "../../Assets/Admin Icon.png"
 
 type Props = {};
@@ -22,11 +22,11 @@ const Sidebar = (props: Props) => {
 
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <div
         className={`${
           open ? "w-64" : "w-20"
-        } h-screen fixed duration-300 flex flex-col p-5 pt-8 bg-stone-100 shadow-sm relative`}>
+        } h-screen  duration-300 flex flex-col p-5 pt-8 bg-stone-100 shadow-sm relative`}>
              <button
           className="absolute cursor-pointer text-lg bg-indigo-100 text-indigo-800 hover:bg-indigo-200 rounded-full -right-4 top-9 w-7 h-7 border-2 border-indigo-600 items-center justify-center"
           onClick={() => setOpen(!open)}
@@ -71,9 +71,9 @@ const Sidebar = (props: Props) => {
             </div>
             {documentsOpen && open && (
               <div className="pl-8 flex flex-col space-y-2 text-sm">
-                <Link to="documents/create" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Create </Link>
-                <Link to="documents/incoming" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Incoming </Link>
-                <Link to="documents/my" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
+                <Link to="documents/create" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Pending </Link>
+                <Link to="Incoming" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Incoming </Link>
+                <Link to="DocumentList" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
               </div>
             )}
           </div>
@@ -83,11 +83,11 @@ const Sidebar = (props: Props) => {
                     isActive("/recycleBin") ? "font-medium text-indigo-900" : ""
                   }`}><IoTrash /> {open && <span>Recycle bin</span>}
           </Link>
-          <Link to="history"
+          {/* <Link to="history"
                 className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
                     isActive("/history") ? "font-medium text-indigo-900" : ""
                   }`}><ImHistory /> {open && <span>Histories</span>}
-          </Link>
+          </Link> */}
           <div>
             <div
               className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg cursor-pointer hover:text-indigo-900 ${
@@ -112,22 +112,24 @@ const Sidebar = (props: Props) => {
           </div>
           <div className="mt-9 border-gray-200 border-b-2 border-t-2">
           <Link 
-                to="users" 
+                to="ManageUser" 
                 className={`flex items-center p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
-                    isActive("/manageUser") ? "font-medium text-indigo-900" : ""
+                    isActive("/ManageUser") ? "font-medium text-indigo-900" : ""
                   }`}><ImUsers />{open && <span>Manage Users</span>}
           </Link>
-            <div className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
+            <Link 
+              to="../Login"
+            className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
                       isActive("/history") ? "font-medium text-indigo-900" : ""
                     }`}>
             <IoExitOutline />{open && <span>Logout</span>}
-            </div>
+            </Link>
  
           </div>
           
         </nav>
         </div>
-        <footer className={`flex items-center pt-5 pb-5 ${open ? "space-x-4" : "justify-center"}`}>
+        <footer className={`flex items-center pt-2 pb-2 ${open ? "space-x-4" : "justify-center"}`}>
           <img src={IconAdmin} alt="Admin Icon" className={`rounded-full ${open ? "h-12 w-12" : " w-8 h-8"}`} />
           {open && (
             <div>
