@@ -7,10 +7,15 @@ import { BiSolidDashboard } from "react-icons/bi";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import Logo from "../../Logo-.png"; 
 import IconAdmin from "../../Assets/Admin Icon.png"
+import { useAuth } from "../../Context/authContext";
+
+
 
 type Props = {};
 
 const Sidebar = (props: Props) => {
+  const { isLoggedIn, user, logout } = useAuth();
+
   const [open, setOpen] = useState(true);
   const [documentsOpen, setDocumentsOpen] = useState(false); // State for Documents dropdown
   const [officesOpen, setOfficesOpen] = useState(false); // State for Offices dropdown
@@ -116,13 +121,13 @@ const Sidebar = (props: Props) => {
                     isActive("/ManageUser") ? "font-medium text-indigo-900" : ""
                   }`}><ImUsers />{open && <span>Manage Users</span>}
           </Link>
-            <Link 
-              to="../Login"
+            <a 
+               onClick={logout}
             className={`flex items-center gap-2 p-2 hover:bg-indigo-200 rounded-lg hover:text-indigo-900 ${
                       isActive("/history") ? "font-medium text-indigo-900" : ""
                     }`}>
             <IoExitOutline />{open && <span>Logout</span>}
-            </Link>
+            </a>
  
           </div>
           

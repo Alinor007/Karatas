@@ -1,10 +1,14 @@
 // src/components/Navbar.tsx
 import React, { useState } from 'react';
 import Logo from '../../Logo-.png'
+import { useAuth } from "../../Context/authContext";
+import { Link } from 'react-router-dom';
 
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, user, logout } = useAuth();
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -17,19 +21,23 @@ const Navbar: React.FC = () => {
         <div className='flex '>
         <h1 className="text-2xl font-bold text-blue-500"> Karatas </h1>      
         </div>
+        
         <div className="hidden md:flex space-x-6">
-          <a href="#home" className="text-gray-800 hover:text-blue-500">
-            Home
-          </a>
-          <a href="#features" className="text-gray-800 hover:text-blue-500">
-            Features
-          </a>
-          <a href="#pricing" className="text-gray-800 hover:text-blue-500">
-            Pricing
-          </a>
-          <a href="#contact" className="text-gray-800 hover:text-blue-500">
-            Contact
-          </a>
+        {isLoggedIn() ? (
+            <>
+              <Link to="#home" className="text-gray-800 hover:text-blue-500">Home</Link>
+              <Link to="#features" className="text-gray-800 hover:text-blue-500">Features</Link>
+              <Link to="#pricing" className="text-gray-800 hover:text-blue-500">Pricing</Link>
+              <Link to="#contact" className="text-gray-800 hover:text-blue-500">Contact</Link>
+              <button onClick={logout} className="text-gray-800 hover:text-blue-500">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link to='../Login' className="text-gray-800 hover:text-blue-500">Login</Link>
+              <Link to='../Register' className="text-gray-800 hover:text-blue-500">Register</Link>
+            </>
+          )}
+        
         </div>
         <div className="md:hidden">
           <button

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Lottie from "lottie-react";
-import astro from '../../Astronaut.png';
-import Moon from '../../Assets/Moon.png';
 import Astoraut from '../../Assets/Animation - 1730007686399.json';
 
 const Hero: React.FC = () => {

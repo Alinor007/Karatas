@@ -3,10 +3,33 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import logo from '../../Logo-.png'
+import { useAuth } from "../../Context/authContext";
       
-type Props = {}
+type Props = {};
+
+type LoginFormsInputs = {
+  userName: string;
+  password: string;
+};
+
+const validation = Yup.object().shape({
+  userName: Yup.string().required("Username is required"),
+  password: Yup.string().required("Password is required"),
+});
 const Loginpage = (props: Props) => {
-   
+  const { loginUser } = useAuth(); // Access loginUser function from context
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormsInputs>({ resolver: yupResolver(validation) });
+ 
+  const handleLogin = (form: LoginFormsInputs) => {
+    loginUser(form.userName, form.password);
+  };
+
+
+
     return (
           <div className=" flex items-center justify-center h-screen">
             <div className="rounded-3xl shadow-lg flex w-3/4 max-w-4xl">
@@ -22,7 +45,7 @@ const Loginpage = (props: Props) => {
               </h3> 
 
               <form  className='mb-2 '
-                
+              onSubmit={handleSubmit(handleLogin)}
               >
                 <div>
                   <label
@@ -36,9 +59,14 @@ const Loginpage = (props: Props) => {
                     id="username"
                     className='w-full p-2 text-sm bg-transparent border-b-4 border-gray-200 '
                     placeholder="Enter your Email"
+                    {...register("userName")}
                   
                   />
-                 
+                  {errors.userName ? (
+                  <p className="text-red-500">{errors.userName.message}</p>
+                ) : (
+                  ""
+                )}
                 </div>
                 <div>
                   <label
@@ -52,9 +80,13 @@ const Loginpage = (props: Props) => {
                     id="password"
                     placeholder="••••••••"
                    className='w-full p-2 bg-transparent border-b-4 border-gray-200 '
-
-                   
+                   {...register("password")}
                   />
+                    {errors.password ? (
+                  <p className="text-red-500">{errors.password.message}</p>
+                ) : (
+                  ""
+                )}
                 
                 </div>
                 <div className="flex items-center justify-between">

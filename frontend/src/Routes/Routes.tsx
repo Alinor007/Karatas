@@ -10,6 +10,7 @@ import DocList from "../Components/Documents/DocList";
 import Incoming from "../Components/Documents/Incoming";
 import ManageUser from "../Components/ManageUsers/ManageUser";
 import Office from "../Components/Office/List";
+import { UserProvider } from "../Context/authContext";
 
 
 export const router = createBrowserRouter([
@@ -23,7 +24,9 @@ export const router = createBrowserRouter([
           {
         path: "Page",
         element: (
+          <UserProvider>
             <MainPage />
+            </UserProvider>
         ),
         children: [
           { path: "Offices", element: <OfficeList/> },
