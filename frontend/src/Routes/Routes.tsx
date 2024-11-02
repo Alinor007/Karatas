@@ -10,6 +10,7 @@ import DocList from "../Components/Documents/DocList";
 import Incoming from "../Components/Documents/Incoming";
 import ManageUser from "../Components/ManageUsers/ManageUser";
 import Office from "../Components/Office/List";
+import AddOffice from "../Components/Office/addOffice";
 import { UserProvider } from "../Context/authContext";
 
 
@@ -30,6 +31,7 @@ export const router = createBrowserRouter([
         ),
         children: [
           { path: "Offices", element: <OfficeList/> },
+          { path: "AddOffice", element: <AddOffice/> },
           { path: "Dashboard", element: <Dashboard/> },
           { path: "DocumentList", element: <DocList/> },
           { path: "Incoming", element: <Incoming/> },

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using DocumentTracker.Models;
 
 namespace DocumentTrackerWebApi.Models
 {
@@ -21,5 +22,6 @@ namespace DocumentTrackerWebApi.Models
         public DateTime Created { get; set; } = DateTime.UtcNow;
         
         public DateTime Updated { get; set; } = DateTime.UtcNow;
+        public ICollection<User> Users { get; set; }
     }
 }

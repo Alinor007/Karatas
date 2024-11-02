@@ -241,38 +241,38 @@ namespace DocumentTrackerWebApi.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3647),
+                            Created = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(314),
                             Description = "CSCS Chairperson",
                             Name = "Chairperson",
                             Stage = 0,
-                            Updated = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3650)
+                            Updated = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(317)
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3654),
+                            Created = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(321),
                             Description = "CICS Dean",
                             Name = "Dean",
                             Stage = 0,
-                            Updated = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3654)
+                            Updated = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(322)
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3655),
+                            Created = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(324),
                             Description = "MSU Extension",
                             Name = "Extension",
                             Stage = 0,
-                            Updated = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3656)
+                            Updated = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(324)
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3657),
+                            Created = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(326),
                             Description = "MSU president",
                             Name = "President",
                             Stage = 0,
-                            Updated = new DateTime(2024, 11, 1, 13, 20, 9, 346, DateTimeKind.Utc).AddTicks(3657)
+                            Updated = new DateTime(2024, 11, 2, 4, 15, 1, 783, DateTimeKind.Utc).AddTicks(326)
                         });
                 });
 
@@ -305,13 +305,13 @@ namespace DocumentTrackerWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1961da14-8524-43b9-a55a-3a268da968df",
+                            Id = "39607333-a692-4472-a948-31d55b9a6ca4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4cc45742-ee39-44e9-95ec-63891246a607",
+                            Id = "bc377f5e-3266-4db4-a355-066364ddadbe",
                             Name = "User",
                             NormalizedName = "USER"
                         });

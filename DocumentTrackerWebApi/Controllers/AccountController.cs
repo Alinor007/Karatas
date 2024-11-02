@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -9,6 +10,7 @@ using System.Xml.Xsl;
 using Azure;
 using Azure.Identity;
 using DocumentTracker.Models;
+using DocumentTrackerWebApi.Data;
 using DocumentTrackerWebApi.DTOs;
 using DocumentTrackerWebApi.DTOs.Users;
 using DocumentTrackerWebApi.Interfaces;
@@ -31,6 +33,7 @@ namespace DocumentTrackerWebApi.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILogger<AccountController> _logger;
         private readonly SignInManager<User> _signInManager;
+        private readonly ApplicationDbContext _context;
 
 
 
@@ -39,17 +42,45 @@ namespace DocumentTrackerWebApi.Controllers
         RoleManager<IdentityRole> roleManager,
         IConfiguration configuration,
         ILogger<AccountController> logger,
-        SignInManager<User> signInManager) // Inject ILogger
+        SignInManager<User> signInManager,
+        ApplicationDbContext context) // Inject ILogger
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _logger = logger;
             _signInManager = signInManager;
+            _context = context;
+
         }
 
+            [HttpGet]
+            public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+            {
+                return await _context.Users.Include(u => u.Office).ToListAsync();
+            }
+            [HttpGet("{id}")]
+            public async Task<ActionResult<User>> GetUser(string Name)
+            {
+                var user = await _context.Users.Include(u => u.Office).FirstOrDefaultAsync(u => u.UserName == Name);
 
+                if (user == null)
+                {
+                    return NotFound();
+                }
 
+                return user;
+            }
+
+        [HttpPost("AddUser")]
+
+        public async Task<ActionResult<User>> PostUser(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        }
 
 
         [HttpPost("Register")]
@@ -103,19 +134,18 @@ namespace DocumentTrackerWebApi.Controllers
                         await _userManager.AddToRoleAsync(appUser, role);
 
                     }
-                    //return Ok(
-                    //    new NewUserDTO()
-                    //    {
-                    //        UserName = appUser.UserName,
-                    //        Email = appUser.Email,
-                    //        Token = _tokenService.CreateToken(appUser)
+                    var newToken = await GenerateJWTTokenAsync(appUser);
+                    var roles = await _userManager.GetRolesAsync(appUser);
+                    var userInfo = GenerateUserInfoObject(appUser, roles);
 
-                    //    });
-                    return StatusCode(StatusCodes.Status201Created, new
+                    return Ok(
+                        new LoginServiceResponseDto()
+                        {
+                            NewToken = newToken,
+                            UserInfo = userInfo
+                        });
 
-                    { status = "Success", title = "User Created Successfully" });
                 }
-
 
             }
             catch (Exception e)
@@ -126,6 +156,7 @@ namespace DocumentTrackerWebApi.Controllers
 
 
         }
+
 
 
         [HttpPost("Login")]

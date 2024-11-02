@@ -9,7 +9,7 @@ namespace DocumentTrackerWebApi.Interfaces
 {
     public interface IOfficeRepository
     {
-         Task<List<Office>> GetAllAsync();
+         Task<IEnumerable<Office>> GetAllAsync();
         Task<Office?> GetByIdAsync(int id);
         Task<Office> AddAsync(Office office);
         Task<Office?> UpdateAsync(int id,UpdateOfficeDTO updateOfficeDTO);

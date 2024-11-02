@@ -1,5 +1,3 @@
-import Office from "../Components/Office/List";
-
 export type UserProfileToken = {
   userName: string;
   email: string;

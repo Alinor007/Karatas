@@ -20,7 +20,6 @@ namespace DocumentTrackerWebApi.DTOs
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
         public string Address { get; set; }
-
-        public int OfficeId { get; set; }
+        public int OfficeId { get; set; } // New field for selected office
     }
 }

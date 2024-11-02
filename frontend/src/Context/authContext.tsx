@@ -1,19 +1,31 @@
-import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useEffect, useState, useContext, useCallback } from "react";
 import { UserProfile } from "../Models/Auth";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../Service/AuthService";
 import { toast } from "react-toastify";
 import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
 
 
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
-  registerUser: (email: string, username: string, password: string, address: string, firstName: string, lastName: string, office: number) => void; // Added office parameter
+  registerUsers: (email: string, username: string, password: string, address: string, firstName: string, lastName: string, officeId: number) => void; // Added office parameter
   loginUser: (username: string, password: string) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
+  registerUser: (
+    firstName: string,
+    lastName: string,
+    userName: string,
+    email: string,
+    password: string,
+    address: string,
+    officeId:number
+  ) => Promise<void>;
+
 };
+
 
 type Props = { children: React.ReactNode };
 
@@ -28,14 +40,12 @@ export const UserProvider = ({ children }: Props) => {
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     const savedToken = localStorage.getItem("token");
-
     if (savedUser && savedToken) {
       const parsedUser = JSON.parse(savedUser) as UserProfile;
       setUser(parsedUser);
       setToken(savedToken);
       axios.defaults.headers.common["Authorization"] = `Bearer ${savedToken}`;
     }
-
     setIsReady(true);
   }, []);
 
@@ -47,17 +57,17 @@ export const UserProvider = ({ children }: Props) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 
-  const registerUser = async (
+  const registerUsers = async (
     email: string,
     username: string,
     password: string,
     address: string,
     firstName: string,
     lastName: string,
-    office: number // Added office parameter
+    officeId: number // Added office parameter
   ) => {
     try {
-      const res = await registerAPI(email, username, password, address, firstName, lastName, office); // Pass office to registerAPI
+      const res = await registerAPI(email, username, password, address, firstName, lastName, officeId); // Pass office to registerAPI
       if (res?.data) {
         const userObj: UserProfile = {
           userName: res.data.userName,
@@ -111,8 +121,27 @@ export const UserProvider = ({ children }: Props) => {
     navigate("/");
   };
 
+  const registerUser = useCallback(
+    async (firstName: string, lastName: string, userName: string, email: string, password: string, address: string,officeId:number) => {
+      const response = await axiosInstance.post('Account/Register', {
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+        address,
+        officeId
+      });
+      console.log('Register Result:', response);
+      toast.success('Register Was Successfull. Please Login.');
+      navigate("/Page");
+    },
+    []
+  );
+ 
+
   return (
-    <UserContext.Provider value={{ loginUser, user, token, logout, isLoggedIn, registerUser }}>
+    <UserContext.Provider value={{ loginUser, user, token, logout, isLoggedIn, registerUsers,registerUser, }}>
       {isReady ? children : null}
     </UserContext.Provider>
   );
@@ -125,3 +154,5 @@ export const useAuth = (): UserContextType => {
   }
   return context;
 };
+
+

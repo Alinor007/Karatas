@@ -20,14 +20,22 @@ namespace DocumentTrackerWebApi.Repository
             _context = context;
         }
 
-        public async Task<List<Office>> GetAllAsync()
+        public async Task<IEnumerable<Office>> GetAllAsync()
         {
-            return await _context.Offices.ToListAsync();
+            return await _context.Offices.Include(o => o.Users).ToListAsync();
         }
 
         public async Task<Office?> GetByIdAsync(int id)
         {
-              return await _context.Offices.FindAsync(id);
+            var office = await _context.Offices.Include(o => o.Users)
+                                         .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (office == null)
+            {
+                return null ;
+            }
+
+            return office;
         }
 
         public async Task<Office> AddAsync(Office office)

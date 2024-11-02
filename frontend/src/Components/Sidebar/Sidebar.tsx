@@ -14,8 +14,7 @@ import { useAuth } from "../../Context/authContext";
 type Props = {};
 
 const Sidebar = (props: Props) => {
-  const { isLoggedIn, user, logout } = useAuth();
-
+  const {user, logout } = useAuth();
   const [open, setOpen] = useState(true);
   const [documentsOpen, setDocumentsOpen] = useState(false); // State for Documents dropdown
   const [officesOpen, setOfficesOpen] = useState(false); // State for Offices dropdown
@@ -30,7 +29,7 @@ const Sidebar = (props: Props) => {
       <div
         className={`${
           open ? "w-64" : "w-20"
-        } h-screen  duration-300 flex flex-col p-5 pt-8 bg-stone-100 shadow-sm relative`}>
+        } h-120 duration-300 flex flex-col p-5 pt-8 bg-stone-100 shadow-sm relative`}>
              <button
           className="absolute cursor-pointer text-lg bg-indigo-100 text-indigo-800 hover:bg-indigo-200 rounded-full -right-4 top-9 w-7 h-7 border-2 border-indigo-600 items-center justify-center"
           onClick={() => setOpen(!open)}
@@ -109,7 +108,7 @@ const Sidebar = (props: Props) => {
             </div>
             {officesOpen && open && (
               <div className="pl-8 flex flex-col space-y-2">
-                <Link to="offices/create" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Create </Link>
+                <Link to="AddOffice" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">Create </Link>
                 <Link to="Offices/" className="hover:text-indigo-900 p-1 rounded-lg hover:bg-indigo-400">List</Link>
               </div>
             )}
@@ -133,14 +132,15 @@ const Sidebar = (props: Props) => {
           
         </nav>
         </div>
+        
         <footer className={`flex items-center pt-2 pb-2 ${open ? "space-x-4" : "justify-center"}`}>
-          <img src={IconAdmin} alt="Admin Icon" className={`rounded-full ${open ? "h-12 w-12" : " w-8 h-8"}`} />
-          {open && (
-            <div>
-              <p className="font-semibold text-sm">Alinor Abdulgafor</p>
-              <p className="text-xs">alinor@example.com</p>
-            </div>
-          )}
+            <img src={IconAdmin} alt="Admin Icon" className={`rounded-full ${open ? "h-12 w-12" : " w-8 h-8"}`} />
+            {open && (
+              <div>
+                <p className="font-semibold text-sm">{user?.firstName || "User"}</p>  {/* Display "User" if firstName is unavailable */}
+                <p className="text-xs">{user?.email || "No email"}</p>  {/* Use a fallback for email as well */}
+              </div>
+            )}
         </footer>
       </div>
      

@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
         </div>
         
         <div className="hidden md:flex space-x-6">
-        {isLoggedIn() ? (
+            {isLoggedIn() ? (
             <>
               <Link to="#home" className="text-gray-800 hover:text-blue-500">Home</Link>
               <Link to="#features" className="text-gray-800 hover:text-blue-500">Features</Link>

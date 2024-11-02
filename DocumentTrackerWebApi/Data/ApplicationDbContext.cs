@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Reflection.Emit;
 
 namespace DocumentTrackerWebApi.Data
 {
@@ -21,7 +22,15 @@ namespace DocumentTrackerWebApi.Data
         public virtual DbSet<User> User { get; set; }
       protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
-            
+
+
+            // Configure one-to-many relationship
+            builder.Entity<Office>()
+                .HasMany(o => o.Users)
+                .WithOne(u => u.Office)
+                .HasForeignKey(u => u.OfficeId);
+
+
             List<IdentityRole>roles = new List<IdentityRole>{
                 new IdentityRole
                 {
