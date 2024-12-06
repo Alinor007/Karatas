@@ -1,46 +1,39 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using DocumentTracker.Models;
 using DocumentTrackerWebApi.Data;
 using DocumentTrackerWebApi.DTOs;
 using DocumentTrackerWebApi.Extension;
-using DocumentTrackerWebApi.Helpers;
 using DocumentTrackerWebApi.Interfaces;
 using DocumentTrackerWebApi.Mappers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentTrackerWebApi.Controllers
 {
     [Route("api/[controller]")]
-
     [ApiController]
-
-
-    public class DocumentsController:ControllerBase
+    public class DocumentsController : ControllerBase
     {
         private readonly IDocumentRepository _documentRepo;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-
-        public DocumentsController(IDocumentRepository documentRepo, ApplicationDbContext context,UserManager<User> userManager)
+        public DocumentsController(
+            IDocumentRepository documentRepo,
+            ApplicationDbContext context,
+            UserManager<User> userManager,
+            IWebHostEnvironment webHostEnvironment)  // Inject IWebHostEnvironment
         {
             _documentRepo = documentRepo;
             _context = context;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;  // Initialize IWebHostEnvironment
         }
 
-        [HttpGet("total")]
-        public async Task<ActionResult<int>> GetTotalDocuments()
-        {
-            var totalDocuments = await _documentRepo.CountAsync();
-            return Ok(new { TotalDocuments = totalDocuments });
-        }
         // GET: api/documents
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetAll()
@@ -66,20 +59,43 @@ namespace DocumentTrackerWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<DocumentDTO>> CreateDocument([FromBody] CreateDocumentDTO createDocumentDto)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             var username = User.GetUsername();
-            var AppUser = await _userManager.FindByEmailAsync(username);
+            var user = await _userManager.FindByEmailAsync(username);
+
+            if (user == null)
+            {
+                return Unauthorized(new { Message = "User not found or unauthorized." });
+            }
 
             var documentModel = createDocumentDto.ToDocumentFromCreateDTO();
+            if (createDocumentDto.File != null)
+            {
+                var fileName = Path.GetFileNameWithoutExtension(createDocumentDto.File.FileName);
+                var extension = Path.GetExtension(createDocumentDto.File.FileName);
+                var newFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
+                var path = Path.Combine("Uploads", newFileName); // Define your upload directory
 
-            documentModel.UserId = AppUser.Id;
-            await _documentRepo.AddAsync(documentModel); 
-            // Create DocumentApproval
+                // Save file to the path
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await createDocumentDto.File.CopyToAsync(stream);
+                }
+
+                documentModel.FilePath = path;
+                documentModel.FileName = createDocumentDto.File.FileName;
+                documentModel.FileType = createDocumentDto.File.ContentType;
+            }
+            documentModel.UserId = user.Id;
+
+            // Add and save new document
+            await _documentRepo.AddAsync(documentModel);
+
+            // Create initial DocumentApproval record
             var documentApproval = new DocumentApproval
             {
                 DocumentId = documentModel.Id,
@@ -92,8 +108,7 @@ namespace DocumentTrackerWebApi.Controllers
             await _context.DocumentApprovals.AddAsync(documentApproval);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = documentModel.Id }, documentModel);
-
+            return CreatedAtAction(nameof(GetById), new { id = documentModel.Id }, documentModel.ToDocumentDto());
         }
 
         // PUT: api/documents/{id}
@@ -126,6 +141,5 @@ namespace DocumentTrackerWebApi.Controllers
 
             return NoContent(); // HTTP 204
         }
-        
     }
 }

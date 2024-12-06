@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DocumentTracker.Models;
 using DocumentTrackerWebApi.DTOs;
 
@@ -9,17 +6,18 @@ namespace DocumentTrackerWebApi.Mappers
 {
     public static class DocumentMappers
     {
-           // Maps Document model to DocumentDTO
+        // Maps Document model to DocumentDTO
         public static DocumentDTO ToDocumentDto(this Document documentModel)
         {
             return new DocumentDTO
             {
                 Id = documentModel.Id,
-                CreatedBy = documentModel.User != null ? documentModel.User.Email : string.Empty,  // Handle null case
-                Name = documentModel.Name,
-                Status = documentModel.status,
-                Created = documentModel.Created,
-                Updated = documentModel.Updated
+                UserId = documentModel.UserId,
+                CreatedBy = documentModel.User != null ? documentModel.User.Email : string.Empty,  // Handles null case for User
+                Title = documentModel.Title,
+                Status = documentModel.Status,
+                Created = documentModel.DateCreated,
+                Updated = documentModel.DateUpdated
             };
         }
 
@@ -28,28 +26,28 @@ namespace DocumentTrackerWebApi.Mappers
         {
             return new Document
             {
-
-                Name = documentDTO.Name,
-                status = documentDTO.Status,
-                Created = DateTime.UtcNow, // Set by server
-                Updated = DateTime.UtcNow  // Initialize as Created time
+                Title = documentDTO.Title,
+                Owner = documentDTO.Owner ?? string.Empty,
+                Status = DocumentStatus.Pending, // Assuming default status as Pending
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
             };
         }
 
-         public static void UpdateDocumentFromUpdateDTO(this UpdateDocumentDTO updateDocumentDTO, Document documentModel)
+        // Updates Document model from UpdateDocumentDTO
+        public static void UpdateDocumentFromUpdateDTO(this UpdateDocumentDTO updateDocumentDTO, Document documentModel)
         {
-            if (!string.IsNullOrEmpty(updateDocumentDTO.Name))
+            if (!string.IsNullOrEmpty(updateDocumentDTO.Title))
             {
-                documentModel.Name = updateDocumentDTO.Name;
+                documentModel.Title = updateDocumentDTO.Title;
             }
 
             if (updateDocumentDTO.Status.HasValue)
             {
-                documentModel.status = updateDocumentDTO.Status.Value;
+                documentModel.Status = updateDocumentDTO.Status.Value;
             }
 
-            documentModel.Updated = DateTime.UtcNow; // Update timestamp
+            documentModel.DateUpdated = DateTime.UtcNow; // Update timestamp
         }
-        
     }
 }

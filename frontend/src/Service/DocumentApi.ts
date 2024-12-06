@@ -5,6 +5,14 @@ const API_BASE_URL = 'http://localhost:5100/api';
 
 
 export const api = {
+  
+  uploadFile: async (id: string, formData: FormData): Promise<void> => {
+    await axios.post(`${API_BASE_URL}/Documents/${id}/upload`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },  
+
+
     getAllDocuments: async (): Promise<Document[]> => {
       const response = await axios.get(`${API_BASE_URL}/Documents`);
       return response.data;
@@ -15,8 +23,10 @@ export const api = {
       return response.data;
     },
   
-    createDocuments: async (documents: DocumentPost): Promise<Document> => {
-      const response = await axios.post(`${API_BASE_URL}/Documents`, documents);
+    createDocuments: async (formData: FormData): Promise<Document> => {
+      const response = await axios.post(`${API_BASE_URL}/Documents`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       return response.data;
     },
   
@@ -28,4 +38,6 @@ export const api = {
     deleteOffice: async (id: number): Promise<void> => {
       await axios.delete(`${API_BASE_URL}/Documents/${id}`);
     }
+    
   };
+  

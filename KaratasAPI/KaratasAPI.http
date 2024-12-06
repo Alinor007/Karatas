@@ -1,0 +1,6 @@
+@KaratasAPI_HostAddress = http://localhost:5169
+
+GET {{KaratasAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

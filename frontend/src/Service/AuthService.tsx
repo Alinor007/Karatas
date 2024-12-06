@@ -1,53 +1,60 @@
 import { toast } from "react-toastify";
 import { handleError } from "../Helpers/ErrorHandler";
 import { UserProfileToken } from "../Models/Auth";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const api = "http://localhost:5100/api/";
 
 export const loginAPI = async (username: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api+"Account/Login", {
-      username: username,
-      password: password,
-
+    const response = await axios.post<UserProfileToken>(`${api}Account/Login`, {
+      username,
+      password,
     });
-    return data;
+    return response;
   } catch (error) {
     handleError(error);
+    throw new Error("Login failed. Please check your credentials.");
   }
 };
 
 export const registerAPI = async (
-
   firstName: string,
   lastName: string,
   email: string,
-  username: string,
+  userName: string,
   password: string,
   address: string,
-  officeId: number 
-
+  officeId: number
 ) => {
+  
   try {
-    const data = await axios.post<UserProfileToken>(api+"Account/Register", {
-      email,
-      username,
-      password,
-      address,
+
+    const payload = {
       firstName,
       lastName,
-      officeId, // Send office in the request
+      email,
+      userName,
+      password,
+      address,
+      officeId,
+    };
+
+    // Log the payload to the console
+    console.log("Payload Sent to API:", payload);
+    const response = await axios.post<UserProfileToken>(`${api}Account/Register`, {
+      firstName,
+      lastName,
+      email,
+      userName,
+      password,
+      address,
+      officeId,
     });
-    return data;
-  } catch (error: unknown) {
-    if (error instanceof AxiosError && error.response) {
-      console.error("API error:", error.response.data);
-      // Optionally, show an error toast to the user
-      toast.error("Registration failed: " + error.response.data.message || "Unknown error");
-    } else {
-      console.error("Unexpected error:", error);
-    }
-    handleError(error);  // Continue with generic error handling
+ 
+    return response;
+  } catch (error) {
+    handleError(error);
+    throw new Error("Registration failed. Please try again.");
   }
 };

@@ -1,11 +1,12 @@
 export interface Document  {
-    id: number;         // Assuming you'll want to include the id when retrieving documents
-    name: string;
-    description: string;  // This can represent some document description field
-    status: boolean;     // Status of document (approved or not)
-    userId?: string;     // Optional field for UserId
-    created: Date;       // Date when the document was created
-    updated: Date;       // Date when the document was last updated
+  id: string;
+  controlNumber: string;
+  type: 'Contract' | 'Invoice' | 'Report' | 'Proposal';
+  status: 'Draft' | 'Pending' | 'Approved' | 'Rejected';
+  owner: string;
+  created: string;
+  title: string;
+  priority: 'Low' | 'Medium' | 'High';
   };
   
   // Type for posting document data (to API)

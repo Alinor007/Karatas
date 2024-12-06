@@ -1,0 +1,343 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Migrations\\20241118181303_User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20241118181303_User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\helper\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:helper\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\dtos\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:dtos\\userupdatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\dtos\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:dtos\\usercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\migrations\\20241118175150_dbset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:migrations\\20241118175150_dbset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\controllers\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:controllers\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\dtos\\documentcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:dtos\\documentcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\dtos\\loginresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:dtos\\loginresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\helper\\jwttokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:helper\\jwttokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\dtos\\loginrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:dtos\\loginrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\dtos\\documentreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:dtos\\documentreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\karatasapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:karatasapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|c:\\users\\commander\\downloads\\karatas\\karatasapi\\models\\document.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{385CBF96-538C-449F-AAA0-43200D3FAEBB}|KaratasAPI.csproj|solutionrelative:models\\document.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20241118181303_User.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Migrations\\20241118181303_User.cs",
+              "RelativeDocumentMoniker": "Migrations\\20241118181303_User.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Migrations\\20241118181303_User.cs",
+              "RelativeToolTip": "Migrations\\20241118181303_User.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T18:13:03.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Helper\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "Helper\\MappingProfile.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Helper\\MappingProfile.cs",
+              "RelativeToolTip": "Helper\\MappingProfile.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAiwBcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:30:50.726Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAACiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-18T17:24:16.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAACgAAAAAAAAAAAAAAC0AAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:23:22.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Controllers\\UsersController.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAQwCEAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T18:05:44.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAAswBIAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:21:48.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\UserCreateDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\UserCreateDto.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\UserCreateDto.cs",
+              "RelativeToolTip": "DTOs\\UserCreateDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:58:50.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserUpdateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\UserUpdateDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\UserUpdateDto.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\UserUpdateDto.cs",
+              "RelativeToolTip": "DTOs\\UserUpdateDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T18:04:18.125Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:20:08.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Controllers\\AuthController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:27:51.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DocumentsController.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Controllers\\DocumentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DocumentsController.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Controllers\\DocumentsController.cs",
+              "RelativeToolTip": "Controllers\\DocumentsController.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAwBcAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:20:57.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DocumentCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\DocumentCreateDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\DocumentCreateDto.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\DocumentCreateDto.cs",
+              "RelativeToolTip": "DTOs\\DocumentCreateDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:29:36.079Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "20241118175150_DbSet.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Migrations\\20241118175150_DbSet.cs",
+              "RelativeDocumentMoniker": "Migrations\\20241118175150_DbSet.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Migrations\\20241118175150_DbSet.cs",
+              "RelativeToolTip": "Migrations\\20241118175150_DbSet.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:51:50.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\LoginResponseDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\LoginResponseDto.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\LoginResponseDto.cs",
+              "RelativeToolTip": "DTOs\\LoginResponseDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:33:51.795Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "LoginRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\LoginRequestDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\LoginRequestDto.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\LoginRequestDto.cs",
+              "RelativeToolTip": "DTOs\\LoginRequestDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:33:32.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "DocumentReadDto.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\DocumentReadDto.cs",
+              "RelativeDocumentMoniker": "DTOs\\DocumentReadDto.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\DTOs\\DocumentReadDto.cs",
+              "RelativeToolTip": "DTOs\\DocumentReadDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:29:58.214Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "JwtTokenHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Helper\\JwtTokenHelper.cs",
+              "RelativeDocumentMoniker": "Helper\\JwtTokenHelper.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Helper\\JwtTokenHelper.cs",
+              "RelativeToolTip": "Helper\\JwtTokenHelper.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAAACYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:25:29.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "KaratasAPI",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\KaratasAPI.csproj",
+              "RelativeDocumentMoniker": "KaratasAPI.csproj",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\KaratasAPI.csproj",
+              "RelativeToolTip": "KaratasAPI.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-18T17:21:27.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Document.cs",
+              "DocumentMoniker": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Models\\Document.cs",
+              "RelativeDocumentMoniker": "Models\\Document.cs",
+              "ToolTip": "C:\\Users\\Commander\\Downloads\\Karatas\\KaratasAPI\\Models\\Document.cs",
+              "RelativeToolTip": "Models\\Document.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAowA4AAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T17:19:52.43Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

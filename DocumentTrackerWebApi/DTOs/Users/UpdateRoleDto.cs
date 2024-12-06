@@ -12,7 +12,8 @@ namespace DocumentTrackerWebApi.DTOs.Users
     public enum RoleType
     {
         ADMIN,
-        USER
+        USER,
+        EMPLOYEE
     }
 }
 

@@ -49,10 +49,10 @@ const Loginpage = (props: Props) => {
               >
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="username"
                     className="block text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Email
+                    username
                   </label>
                   <input
                     type="text"
@@ -109,7 +109,7 @@ const Loginpage = (props: Props) => {
                 <p className='text-base font-medium'>
                   Don’t have an account yet?{" "}
                   <a
-                    href="#"
+                    href="../register"
                     className='ml-2 text-base font-medium text-violet-500'
                   >
                     Sign up

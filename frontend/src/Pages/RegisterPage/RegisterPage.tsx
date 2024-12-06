@@ -1,50 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import logo from '../../Logo-.png';
+import logo from "../../Logo-.png";
 import { useAuth } from "../../Context/authContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 type Props = {};
 
+type Office = {
+  id: number;
+  name: string;
+};
+
 type RegisterFormsInputs = {
-  email: string;
-  userName: string;
-  password: string;
-  address: string;
   firstName: string;
   lastName: string;
-  officeId: number; // Added office field
+  userName: string;
+  email: string;
+  password: string;
+  address: string;
+  officeId: number;
 };
 
 const validation = Yup.object().shape({
-  email: Yup.string().required("Email is required"),
-  userName: Yup.string().required("Username is required"),
-  password: Yup.string().required("Password is required"),
-  address: Yup.string().required("Address is required"),
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
-  officeId: Yup.number().required("Office is required").positive().integer(), // Validation for office field
+  userName: Yup.string().required("Username is required"),
+  email: Yup.string().email().required("Email is required"),
+  password: Yup.string().min(6).required("Password is required"),
+  address: Yup.string().required("Address is required"),
+  officeId: Yup.number().positive().integer().required("Office is required"),
 });
 
 const RegisterPage = (props: Props) => {
   const { registerUser } = useAuth();
+  const [offices, setOffices] = useState<Office[]>([]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormsInputs>({ resolver: yupResolver(validation) });
 
+  // Fetch offices from API
+  useEffect(() => {
+    const fetchOffices = async () => {
+      try {
+        const response = await axios.get("http://localhost:5100/api/Offices"); // Update URL if necessary
+        setOffices(response.data);
+      } catch (error) {
+        console.error("Error fetching offices:", error);
+      }
+    };
+
+    fetchOffices();
+  }, []);
+
   const handleRegister = (form: RegisterFormsInputs) => {
     registerUser(
+      form.firstName,
+      form.lastName,
       form.email,
       form.userName,
       form.password,
       form.address,
-      form.firstName,
-      form.lastName,
-      form.officeId // Pass office value to registerUser
+      form.officeId
     );
   };
 
@@ -61,37 +84,47 @@ const RegisterPage = (props: Props) => {
 
           <form className="mb-2" onSubmit={handleSubmit(handleRegister)}>
             <div>
-              <label htmlFor="firstName" className="block text-xs font-medium text-gray-900">First Name</label>
-              <input type="text" id="firstName"
-               className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
+              <label htmlFor="firstName" className="block text-xs font-medium text-gray-900">
+                First Name
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
                 placeholder="Enter your First Name"
-                 {...register("firstName")} />
+                {...register("firstName")}
+              />
               {errors.firstName && <p className="error">{errors.firstName.message}</p>}
             </div>
+
             <div>
-              <label htmlFor="lastName" className="block text-xs font-medium text-gray-900">Last Name</label>
-              <input type="text" id="lastName"
-               className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
-                placeholder="Enter your Last Name" {...register("lastName")} />
+              <label htmlFor="lastName" className="block text-xs font-medium text-gray-900">
+                Last Name
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
+                placeholder="Enter your Last Name"
+                {...register("lastName")}
+              />
               {errors.lastName && <p className="error">{errors.lastName.message}</p>}
             </div>
+
             <div>
-              <label htmlFor="address" className="block text-xs font-medium text-gray-900">Address</label>
-              <input type="text" id="address" 
-               className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
+              <label htmlFor="address" className="block text-xs font-medium text-gray-900">
+                Address
+              </label>
+              <input
+                type="text"
+                id="address"
+                className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
                 placeholder="Enter your Address"
-              {...register("address")} />
+                {...register("address")}
+              />
               {errors.address && <p className="error">{errors.address.message}</p>}
             </div>
-            <div>
-              <label htmlFor="office"className="block text-xs font-medium text-gray-900">Office Number</label>
-              <input 
-              type="number"
-              className="w-full p-2 text-xs bg-transparent border-b-4 border-gray-200"
-               placeholder="Select your office"
-               id="office" {...register("officeId")} />
-              {errors.officeId && <p className="error">{errors.officeId.message}</p>}
-            </div>
+
             <div>
               <label htmlFor="userName" className="block text-xs font-medium text-gray-900">
                 Username
@@ -105,6 +138,7 @@ const RegisterPage = (props: Props) => {
               />
               {errors.userName && <p className="error">{errors.userName.message}</p>}
             </div>
+
             <div>
               <label htmlFor="email" className="block text-xs font-medium text-gray-900">
                 Email
@@ -118,6 +152,7 @@ const RegisterPage = (props: Props) => {
               />
               {errors.email && <p className="error">{errors.email.message}</p>}
             </div>
+
             <div>
               <label htmlFor="password" className="block mt-2 text-xs font-medium text-gray-900">
                 Password
@@ -132,6 +167,25 @@ const RegisterPage = (props: Props) => {
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>
 
+            <div>
+              <label htmlFor="officeId" className="block text-xs font-medium text-gray-900">
+                Office
+              </label>
+              <select
+                id="officeId"
+                className="w-full p-2 bg-transparent border-b-4 border-gray-200"
+                {...register("officeId")}
+              >
+                <option value="">Select an Office</option>
+                {offices.map((office) => (
+                  <option key={office.id} value={office.id}>
+                    {office.name}
+                  </option>
+                ))}
+              </select>
+              {errors.officeId && <p className="error">{errors.officeId.message}</p>}
+            </div>
+
             <div className="flex flex-col mt-4 gap-y-4">
               <button
                 type="submit"
@@ -140,8 +194,9 @@ const RegisterPage = (props: Props) => {
                 Sign up
               </button>
             </div>
-            <div className="flex justify-center mt-3 text-center  text-xs">
-              <p className=" font-medium">
+
+            <div className="flex justify-center mt-3 text-center text-xs">
+              <p className="font-medium">
                 Already have an account?{" "}
                 <Link to="../login" className="ml-2 text-base font-medium text-violet-500">
                   Sign in

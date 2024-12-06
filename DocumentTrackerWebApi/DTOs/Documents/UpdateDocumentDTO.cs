@@ -1,3 +1,4 @@
+using DocumentTracker.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,9 +9,17 @@ namespace DocumentTrackerWebApi.DTOs
 {
     public class UpdateDocumentDTO
     {
-         [StringLength(200, MinimumLength = 3)]
-        public string Name { get; set; }
-        
-        public bool? Status { get; set; } // Nullable to allow partial updates
+        [StringLength(200, MinimumLength = 3)]
+        public string? Title { get; set; }
+
+        [EnumDataType(typeof(DocumentType))]
+        public DocumentType? Type { get; set; }
+        public IFormFile? File { get; set; }  // Allow updating file
+
+        public string? Owner { get; set; }
+
+        [EnumDataType(typeof(DocumentStatus))]
+        public DocumentStatus? Status { get; set; }
+
     }
 }

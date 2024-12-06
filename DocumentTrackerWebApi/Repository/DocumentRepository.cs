@@ -1,42 +1,35 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Xml.XPath;
 using DocumentTracker.Models;
 using DocumentTrackerWebApi.Data;
 using DocumentTrackerWebApi.DTOs;
-using DocumentTrackerWebApi.Helpers;
 using DocumentTrackerWebApi.Interfaces;
 using DocumentTrackerWebApi.Mappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 namespace DocumentTrackerWebApi.Repository
 {
     public class DocumentRepository : IDocumentRepository
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager; // Add UserManager
+        private readonly UserManager<User> _userManager;
 
         public DocumentRepository(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
-            _userManager = userManager; // Initialize UserManage
+            _userManager = userManager;
         }
 
-        // Retrieves all document records
-         public async Task<List<Document>> GetAllAsync()
+        // Retrieves all document records, including User details if available
+        public async Task<List<Document>> GetAllAsync()
         {
-            // Include related entities if necessary (e.g., User)
             return await _context.Documents
                                  .Include(d => d.User)
                                  .ToListAsync();
         }
 
-        // Retrieves a document record by ID
+        // Retrieves a document record by ID, including User details if available
         public async Task<Document?> GetByIdAsync(int id)
         {
             return await _context.Documents
@@ -47,12 +40,8 @@ namespace DocumentTrackerWebApi.Repository
         // Adds a new document record
         public async Task<Document> AddAsync(Document document)
         {
-
-
-            document.Created = DateTime.UtcNow; // Automatically set Created date
-            document.Updated = DateTime.UtcNow; // Set Updated date to now
             await _context.Documents.AddAsync(document);
-            await _context.SaveChangesAsync(); // Saves and generates Document.Id
+            await _context.SaveChangesAsync();
             return document;
         }
 
@@ -60,13 +49,11 @@ namespace DocumentTrackerWebApi.Repository
         public async Task<Document?> UpdateAsync(int id, UpdateDocumentDTO updateDocumentDTO)
         {
             var document = await _context.Documents.FindAsync(id);
-            if (document == null)
-            {
-                return null;
-            }
+            if (document == null) return null;
 
-            // Map DTO to entity
             updateDocumentDTO.UpdateDocumentFromUpdateDTO(document);
+
+            document.DateUpdated = DateTime.UtcNow;
 
             try
             {
@@ -76,14 +63,7 @@ namespace DocumentTrackerWebApi.Repository
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await ExistsAsync(id))
-                {
-                    return null;
-                }
-                else
-                {
-                    throw;
-                }
+                return await ExistsAsync(id) ? document : null;
             }
         }
 
@@ -91,10 +71,7 @@ namespace DocumentTrackerWebApi.Repository
         public async Task<Document?> DeleteAsync(int id)
         {
             var document = await _context.Documents.FindAsync(id);
-            if (document == null)
-            {
-                return null;
-            }
+            if (document == null) return null;
 
             _context.Documents.Remove(document);
             await _context.SaveChangesAsync();
@@ -106,13 +83,5 @@ namespace DocumentTrackerWebApi.Repository
         {
             return await _context.Documents.AnyAsync(d => d.Id == id);
         }
-        public async Task<int> CountAsync()
-        {
-            return await _context.Documents.CountAsync();
-        }
-
-
-
-
     }
 }

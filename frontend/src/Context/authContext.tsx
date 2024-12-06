@@ -4,25 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../Service/AuthService";
 import { toast } from "react-toastify";
 import axios from "axios";
-import axiosInstance from "../utils/axiosInstance";
 
 
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
-  registerUsers: (email: string, username: string, password: string, address: string, firstName: string, lastName: string, officeId: number) => void; // Added office parameter
+  registerUser: (firstName: string, lastName: string, userName: string, email: string, password: string, address: string, officeId:number) => void; // Added office parameter
   loginUser: (username: string, password: string) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
-  registerUser: (
-    firstName: string,
-    lastName: string,
-    userName: string,
-    email: string,
-    password: string,
-    address: string,
-    officeId:number
-  ) => Promise<void>;
+ 
 
 };
 
@@ -49,43 +40,43 @@ export const UserProvider = ({ children }: Props) => {
     setIsReady(true);
   }, []);
 
-  const handleAuthSuccess = (token: string, userData: UserProfile) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(userData));
-    setToken(token);
-    setUser(userData);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  };
+  // const handleAuthSuccess = (token: string, userData: UserProfile) => {
+  //   localStorage.setItem("token", token);
+  //   localStorage.setItem("user", JSON.stringify(userData));
+  //   setToken(token);
+  //   setUser(userData);
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  // };
 
-  const registerUsers = async (
-    email: string,
-    username: string,
-    password: string,
-    address: string,
+  const registerUser = async (
     firstName: string,
     lastName: string,
-    officeId: number // Added office parameter
+    userName: string,
+    email: string,
+    password: string,
+    address: string,
+    officeId:number
   ) => {
-    try {
-      const res = await registerAPI(email, username, password, address, firstName, lastName, officeId); // Pass office to registerAPI
-      if (res?.data) {
-        const userObj: UserProfile = {
-          userName: res.data.userName,
-          email: res.data.email,
-          address: res.data.address,
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          officeId: res.data.officeId // Include office in the user object
-        };
-  
-        handleAuthSuccess(res.data.token, userObj);
-        toast.success("Registration successful!");
-        navigate("../login");
-      }
-    } catch (error) {
-      console.error("Registration error:", error);
-      toast.warning("Server error occurred during registration.");
-    }
+    await registerAPI( firstName, lastName, userName,email, password, address, officeId)
+      .then((res) => {
+        if (res) {
+          localStorage.setItem("token", res?.data.token);
+          const userObj = {
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            userName: res.data.userName,
+            email: res.data.email,
+            address: res.data.address,
+            officeId:res.data.officeId
+          };
+          localStorage.setItem("user", JSON.stringify(userObj));
+          setToken(res?.data.token!);
+          setUser(userObj!);
+          toast.success("Register successful!");
+          navigate("../login");
+        }
+      })
+      .catch((e) => toast.warning("Server error occured"));
   };
 
   const loginUser = async (username: string, password: string) => {
@@ -93,15 +84,17 @@ export const UserProvider = ({ children }: Props) => {
       const res = await loginAPI(username, password);
       if (res?.data) {
         const userObj: UserProfile = {
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
           userName: res.data.userName,
           email: res.data.email,
           address: res.data.address,
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          officeId: res.data.officeId // Include office in the user object on login
+          officeId:res.data.officeId
         };
-        handleAuthSuccess(res.data.token, userObj);
-        toast.success("Login successful!");
+        localStorage.setItem("user", JSON.stringify(userObj));
+        setToken(res?.data.token!);
+        setUser(userObj!);
+        toast.success("Login Success!");
         navigate("/Page");
       }
     } catch (error) {
@@ -110,38 +103,24 @@ export const UserProvider = ({ children }: Props) => {
     }
   };
 
-  const isLoggedIn = () => !!user;
+  const isLoggedIn = () => {
+    return !!user;
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    setToken(null);
+    setToken("");
     delete axios.defaults.headers.common["Authorization"];
     navigate("/");
   };
 
-  const registerUser = useCallback(
-    async (firstName: string, lastName: string, userName: string, email: string, password: string, address: string,officeId:number) => {
-      const response = await axiosInstance.post('Account/Register', {
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-        address,
-        officeId
-      });
-      console.log('Register Result:', response);
-      toast.success('Register Was Successfull. Please Login.');
-      navigate("/Page");
-    },
-    []
-  );
+  
  
 
   return (
-    <UserContext.Provider value={{ loginUser, user, token, logout, isLoggedIn, registerUsers,registerUser, }}>
+    <UserContext.Provider value={{ loginUser, user, token, logout, isLoggedIn, registerUser, }}>
       {isReady ? children : null}
     </UserContext.Provider>
   );
