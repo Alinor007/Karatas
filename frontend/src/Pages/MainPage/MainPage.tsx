@@ -4,6 +4,7 @@ import Dashboard from '../../Components/Dashboard/Dashboard'
 import { Outlet, useParams } from 'react-router-dom'
 import DocTrack from '../../Components/DocTrack/DocTrack'
 import Tile from '../../Components/Tile/Tile'
+import Footer from '../../Components/Footer/Footer'
 
 type Props = {}
 
@@ -13,7 +14,8 @@ const MainPage = (props: Props) => {
   
   return (
     <>
-      <div className='flex'>
+       
+       <div className="flex min-h-screen ">
         <Sidebar />
         <div className='flex-grow'>
          <Outlet/>
@@ -22,6 +24,9 @@ const MainPage = (props: Props) => {
          
         </div>
       </div>
+      <Footer/>
+    
+       
     </>
   )
 }
