@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DocumentTracker.Models;
 using DocumentTrackerWebApi.Data;
@@ -25,7 +26,7 @@ namespace DocumentTrackerWebApi.Repository
         public async Task<List<Document>> GetAllAsync()
         {
             return await _context.Documents
-                                 .Include(d => d.User)
+                                 .Include(d => d.owner)
                                  .ToListAsync();
         }
 
@@ -33,7 +34,7 @@ namespace DocumentTrackerWebApi.Repository
         public async Task<Document?> GetByIdAsync(int id)
         {
             return await _context.Documents
-                                 .Include(d => d.User)
+                                 .Include(d => d.owner)
                                  .FirstOrDefaultAsync(d => d.Id == id);
         }
 
@@ -82,6 +83,20 @@ namespace DocumentTrackerWebApi.Repository
         public async Task<bool> ExistsAsync(int id)
         {
             return await _context.Documents.AnyAsync(d => d.Id == id);
+        }
+
+        public async Task<(IEnumerable<Document>, int)> GetPaginatedAsync(int page, int pageSize)
+        {
+            var query = _context.Documents.AsQueryable();
+            var totalDocuments = await query.CountAsync();
+
+            var documents = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Include(d => d.owner)
+                .ToListAsync();
+
+            return (documents, totalDocuments);
         }
     }
 }

@@ -7,6 +7,7 @@ using DocumentTrackerWebApi.Mappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace DocumentTrackerWebApi.Controllers
 {
@@ -59,11 +60,10 @@ namespace DocumentTrackerWebApi.Controllers
         public async Task<ActionResult> ApproveOrDecline(int id, [FromQuery] bool isApproved, [FromBody] CreateHistoryDTO createHistoryDto)
         {
 
-            var username = User.GetUsername();
-            var AppUser = await _userManager.FindByEmailAsync(username);
+            var AppUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var HistoryModel = createHistoryDto.ToHistoryFromCreateDTO();
-            HistoryModel.UserId = AppUser.Id;
-
+            HistoryModel.UserId = AppUser;
+                
 
             // Call repository to approve or decline the document and create a history record
             var result = await _approval.ApproveOrDeclineAsync(id, isApproved, HistoryModel.UserId);

@@ -30,6 +30,11 @@ namespace DocumentTrackerWebApi.Data
                 .WithOne(u => u.Office)
                 .HasForeignKey(u => u.OfficeId);
 
+            // Configure one-to-many relationship
+            builder.Entity<User>()
+                .HasMany(o => o.documents)
+                .WithOne(u => u.owner)
+                .HasForeignKey(u => u.OwnerId);
 
             List<IdentityRole>roles = new List<IdentityRole>{
                 new IdentityRole

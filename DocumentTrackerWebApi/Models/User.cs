@@ -18,6 +18,7 @@ namespace DocumentTracker.Models
         public IList<string> Roles { get; set; }
 
         public Office? Office { get; set; }
+        public ICollection<Document> documents { get; set; }
     }
     
 }

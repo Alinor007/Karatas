@@ -13,5 +13,7 @@ namespace DocumentTrackerWebApi.Interfaces
         Task<Document?> UpdateAsync(int id, UpdateDocumentDTO updateDocumentDTO);
         Task<Document?> DeleteAsync(int id);
         Task<bool> ExistsAsync(int id);
+        Task<(IEnumerable<Document>, int)> GetPaginatedAsync(int page, int pageSize);
+
     }
 }

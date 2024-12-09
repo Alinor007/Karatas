@@ -1,18 +1,33 @@
 export interface Document  {
   id: string;
-  controlNumber: string;
-  type: 'Contract' | 'Invoice' | 'Report' | 'Proposal';
-  status: 'Draft' | 'Pending' | 'Approved' | 'Rejected';
-  owner: string;
-  created: string;
   title: string;
-  priority: 'Low' | 'Medium' | 'High';
+  trackingNumber: string;
+  status: 'Draft' | 'Pending' | 'Approved' | 'Rejected';
+  type: 'Contract' | 'Invoice' | 'Report' | 'Proposal';
+  ownerId: string;
+  dateCreated: string;
+  dateUpdated: string;
   };
   
   // Type for posting document data (to API)
   export interface DocumentPost {
-    name: string;
-    description: string;  // Description of the document when creating it
+  
+    Title: string;
+    TrackingNumber: string;
+    Status: 'Draft' | 'Pending' | 'Approved' | 'Rejected';
+    Type: 'Contract' | 'Invoice' | 'Report' | 'Proposal';
+    OwnerId: string;
+    DateCreated: string;
   };
 
-  export interface UpdateDocument extends DocumentPost{}
+  export interface UpdateDocument {
+
+    
+    Title: string;
+    TrackingNumber: string;
+    Status: 'Draft' | 'Pending' | 'Approved' | 'Rejected';
+    Type: 'Contract' | 'Invoice' | 'Report' | 'Proposal';
+    OwnerId: string;
+    DateUpdated: string;
+  
+  }

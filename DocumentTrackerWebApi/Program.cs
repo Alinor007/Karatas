@@ -8,9 +8,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Automatically convert enums to string values during serialization
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 // Add services to the container
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>

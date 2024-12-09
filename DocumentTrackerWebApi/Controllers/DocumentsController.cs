@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DocumentTracker.Models;
 using DocumentTrackerWebApi.Data;
@@ -13,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentTrackerWebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Documents")]
     [ApiController]
     public class DocumentsController : ControllerBase
     {
@@ -21,6 +22,17 @@ namespace DocumentTrackerWebApi.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
+        private static string GenerateTrackingNumber()
+        {
+            DateTime now = DateTime.Now;
+            string year = now.ToString("yy");
+            string month = now.ToString("MM");
+            string day = now.ToString("dd");
+            string militaryTime = now.ToString("HH") + now.ToString("mm") + now.ToString("ss");
+            string milliseconds = now.ToString("ffff");
+            return $"{year}{month}{day}{militaryTime}{milliseconds}";
+        }
 
         public DocumentsController(
             IDocumentRepository documentRepo,
@@ -36,11 +48,27 @@ namespace DocumentTrackerWebApi.Controllers
 
         // GET: api/documents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DocumentDTO>>> GetAll()
+        public async Task<ActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var documents = await _documentRepo.GetAllAsync();
+            if (page <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { Message = "Page and pageSize must be greater than zero." });
+            }
+
+            var (documents, totalDocuments) = await _documentRepo.GetPaginatedAsync(page, pageSize);
+
             var documentsDto = documents.Select(d => d.ToDocumentDto());
-            return Ok(documentsDto);
+
+            var response = new
+            {
+                Data = documentsDto,
+                TotalCount = totalDocuments,
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling(totalDocuments / (double)pageSize)
+            };
+
+            return Ok(response);
         }
 
         // GET: api/documents/{id}
@@ -54,44 +82,45 @@ namespace DocumentTrackerWebApi.Controllers
             }
             return Ok(document.ToDocumentDto());
         }
-
+ 
+      
         // POST: api/documents
-        [HttpPost]
+        [HttpPost("Add")]
         public async Task<ActionResult<DocumentDTO>> CreateDocument([FromBody] CreateDocumentDTO createDocumentDto)
         {
+            
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var username = User.GetUsername();
-            var user = await _userManager.FindByEmailAsync(username);
-
-            if (user == null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
             {
-                return Unauthorized(new { Message = "User not found or unauthorized." });
+                return Unauthorized(new { Message = "Invalid or missing user credentials." });
             }
+          
 
             var documentModel = createDocumentDto.ToDocumentFromCreateDTO();
-            if (createDocumentDto.File != null)
-            {
-                var fileName = Path.GetFileNameWithoutExtension(createDocumentDto.File.FileName);
-                var extension = Path.GetExtension(createDocumentDto.File.FileName);
-                var newFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
-                var path = Path.Combine("Uploads", newFileName); // Define your upload directory
+            //if (createDocumentDto.File != null)
+            //{
+            //    var fileName = Path.GetFileNameWithoutExtension(createDocumentDto.File.FileName);
+            //    var extension = Path.GetExtension(createDocumentDto.File.FileName);
+            //    var newFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
+            //    var path = Path.Combine("Uploads", newFileName); // Define your upload directory
 
-                // Save file to the path
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await createDocumentDto.File.CopyToAsync(stream);
-                }
+            //    // Save file to the path
+            //    using (var stream = new FileStream(path, FileMode.Create))
+            //    {
+            //        await createDocumentDto.File.CopyToAsync(stream);
+            //    }
 
-                documentModel.FilePath = path;
-                documentModel.FileName = createDocumentDto.File.FileName;
-                documentModel.FileType = createDocumentDto.File.ContentType;
-            }
-            documentModel.UserId = user.Id;
+            //    documentModel.FilePath = path;
+            //    documentModel.FileName = createDocumentDto.File.FileName;
+            //    documentModel.FileType = createDocumentDto.File.ContentType;
+            //}
 
+              documentModel.OwnerId = userId;
             // Add and save new document
             await _documentRepo.AddAsync(documentModel);
 
@@ -141,5 +170,6 @@ namespace DocumentTrackerWebApi.Controllers
 
             return NoContent(); // HTTP 204
         }
+       
     }
 }

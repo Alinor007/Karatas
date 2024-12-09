@@ -12,12 +12,14 @@ namespace DocumentTrackerWebApi.Mappers
             return new DocumentDTO
             {
                 Id = documentModel.Id,
-                UserId = documentModel.UserId,
-                CreatedBy = documentModel.User != null ? documentModel.User.Email : string.Empty,  // Handles null case for User
                 Title = documentModel.Title,
+                TrackingNumber =documentModel.TrackingNumber,
                 Status = documentModel.Status,
-                Created = documentModel.DateCreated,
-                Updated = documentModel.DateUpdated
+                Type = documentModel.Type,
+                OwnerId = documentModel.owner.UserName,
+                DateCreated = documentModel.DateCreated,
+                DateUpdated = documentModel.DateUpdated
+
             };
         }
 
@@ -27,27 +29,16 @@ namespace DocumentTrackerWebApi.Mappers
             return new Document
             {
                 Title = documentDTO.Title,
-                Owner = documentDTO.Owner ?? string.Empty,
-                Status = DocumentStatus.Pending, // Assuming default status as Pending
-                DateCreated = DateTime.UtcNow,
-                DateUpdated = DateTime.UtcNow
+                Status = documentDTO.Status,
+                Type = documentDTO.Type,
+                OwnerId = documentDTO.OwnerId
             };
         }
 
         // Updates Document model from UpdateDocumentDTO
         public static void UpdateDocumentFromUpdateDTO(this UpdateDocumentDTO updateDocumentDTO, Document documentModel)
         {
-            if (!string.IsNullOrEmpty(updateDocumentDTO.Title))
-            {
-                documentModel.Title = updateDocumentDTO.Title;
-            }
-
-            if (updateDocumentDTO.Status.HasValue)
-            {
-                documentModel.Status = updateDocumentDTO.Status.Value;
-            }
-
-            documentModel.DateUpdated = DateTime.UtcNow; // Update timestamp
+           
         }
     }
 }

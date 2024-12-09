@@ -1,78 +1,110 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import { Document } from '../../Models/Document';
-import { api } from '../../Service/DocumentApi';
+import { Document, DocumentPost } from "../../Models/Document";
+import { api } from "../../Service/DocumentApi";
+import { useAuth } from '../../Context/authContext'; // Example path to AuthContext
 
-type Props = {}
+type Props = {};
+
 
 function DocList({}: Props) {
   const [documents, setDocuments] = useState<Document[]>([]);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [newDoc, setNewDoc] = useState({
- name: '',
-    description: ''
+  const { user } = useAuth();
+  const [newDoc, setNewDoc] = useState<{ title: string; status: number; type: number }>({
+    title: "",
+    status: 1,
+    type: 1,
   });
+
+  const [pagination, setPagination] = useState({
+    totalCount: 0,
+    currentPage: 1,
+    pageSize: 10,
+    totalPages: 1,
+  });
+
+  const statusMap: { [key: number]: "Draft" | "Pending" | "Approved" | "Rejected" } = {
+    1: "Draft",
+    2: "Pending",
+    3: "Approved",
+    4: "Rejected",
+  };
+
+  const typeMap: { [key: number]: "Contract" | "Invoice" | "Report" | "Proposal" } = {
+    1: "Contract",
+    2: "Invoice",
+    3: "Report",
+    4: "Proposal",
+  };
 
   useEffect(() => {
     fetchDocuments();
-  }, []);
+  }, [pagination.currentPage]);
 
   const fetchDocuments = async () => {
     try {
-      const data = await api.getAllDocuments();
-      setDocuments(data);
+      setLoading(true);
+      console.log( "Current  user:" ,user?.userName); // Access user details 
+      const response = await api.getAllDocuments(pagination.currentPage, pagination.pageSize);
+       console.log("API  Response:", response);
+      setPagination({
+        totalCount: response.totalCount,
+        currentPage: response.currentPage,
+        pageSize: response.pageSize,
+        totalPages: response.totalPages,
+      });
+      setDocuments(response.data);
     } catch (err) {
       console.error("Error fetching documents:", err);
-      setError('Failed to fetch documents');
+      setError("Failed to fetch documents");
     } finally {
       setLoading(false);
     }
   };
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  };
+  console.log("API documents Response:", documents);
 
   const createDocument = async () => {
     try {
-      const formData = new FormData();
-      formData.append("name", newDoc.name);
-      formData.append("description", newDoc.description);
-      
-      // Append file if selected
-      if (file) {
-        formData.append("file", file);
-      }
-  
-      // Make the API call with FormData
-      const createdDoc = await api.createDocuments(formData);
-      setDocuments([...documents, createdDoc]);
+      const newDocument: DocumentPost = {
+        Title: newDoc.title,
+        TrackingNumber: "AUTO_GENERATED", // Replace with actual logic
+        Status: statusMap[newDoc.status],
+        Type: typeMap[newDoc.type],
+        OwnerId: "current_user_id", // Replace with logic to fetch current user
+        DateCreated: new Date().toISOString(),
+      };
+
+      const createdDoc = await api.createDocument(newDocument);
+      setDocuments((prev) => [...prev, createdDoc]);
       setShowModal(false);
-      setNewDoc({ name: '', description: '' });
-      setFile(null); // Reset the file input
+      setNewDoc({ title: "", status: 1, type: 1 });
     } catch (err) {
       console.error("Error creating document:", err);
       setError("Failed to create document");
     }
   };
 
+  const handlePagination = (direction: "previous" | "next") => {
+    setPagination((prev) => ({
+      ...prev,
+      currentPage: direction === "previous" ? prev.currentPage - 1 : prev.currentPage + 1,
+    }));
+  };
+
   return (
     <div className="flex-1 p-6">
       <h1 className="text-3xl font-bold mb-11">Document Information</h1>
-      
-      {/* Add button to open modal */}
+
       <button
         onClick={() => setShowModal(true)}
-        className="mb-4 px-4 py-2 bg-indigo-600 text-white rounded-full "
+        className="mb-4 px-4 py-2 bg-indigo-600 text-white rounded-full"
       >
         Add New Document
       </button>
 
-      {/* Search and Pagination Controls */}
       <div className="text-center text-sm">
         <div className="py-2 flex justify-between">
           <div className="relative w-1/2">
@@ -83,15 +115,25 @@ function DocList({}: Props) {
               className="border border-gray-300 rounded-full px-10 py-2 w-full pr-10 text-sm shadow-md"
             />
           </div>
-          {/* Pagination Controls */}
           <div className="flex items-center ml-4 space-x-2 border-indigo-500 border-2 rounded-full">
-            <button className="px-3 py-1 border rounded-full text-sm bg-gray-100 hover:bg-gray-200">Previous</button>
-            <span className="px-3">Page 1 of 10</span>
-            <button className="px-3 py-1 border rounded-full text-sm bg-gray-100 hover:bg-gray-200">Next</button>
+            <button
+              onClick={() => handlePagination("previous")}
+              className="px-3 py-1 border rounded-full text-sm bg-gray-100 hover:bg-gray-200"
+              disabled={pagination.currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="px-3">Page {pagination.currentPage}</span>
+            <button
+              onClick={() => handlePagination("next")}
+              className="px-3 py-1 border rounded-full text-sm bg-gray-100 hover:bg-gray-200"
+              disabled={pagination.currentPage === pagination.totalPages}
+            >
+              Next
+            </button>
           </div>
         </div>
 
-        {/* Loading, Error, and Document Table */}
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -100,7 +142,8 @@ function DocList({}: Props) {
           <table className="min-w-full bg-stone-100 border mt-9 rounded-lg">
             <thead>
               <tr>
-                <th className="px-4 py-2 border-b border-indigo-600 text-indigo-700">Control Number</th>
+                <th className="px-4 py-2 border-b border-indigo-600 text-indigo-700">Title</th>
+                <th className="px-4 py-2 border-b border-indigo-600 text-indigo-700">Tracking Number</th>
                 <th className="px-4 py-2 border-b border-indigo-600 text-indigo-700">Type</th>
                 <th className="px-4 py-2 border-b border-indigo-600 text-indigo-700">Status</th>
                 <th className="px-4 py-2 border-b border-indigo-600 text-indigo-700">Owner</th>
@@ -111,10 +154,11 @@ function DocList({}: Props) {
               {documents.map((doc) => (
                 <tr key={doc.id}>
                   <td className="px-4 py-2 border-b">{doc.title}</td>
+                  <td className="px-4 py-2 border-b">{doc.trackingNumber}</td>
                   <td className="px-4 py-2 border-b">{doc.type}</td>
-                  <td className="px-4 py-2 border-b">{doc.status ? 'Approved' : 'Pending'}</td>
-                  <td className="px-4 py-2 border-b">{doc.owner}</td>
-                  <td className="px-4 py-2 border-b">{new Date(doc.created).toLocaleDateString()}</td>
+                  <td className="px-4 py-2 border-b">{doc.status}</td>
+                  <td className="px-4 py-2 border-b">{doc.ownerId}</td>
+                  <td className="px-4 py-2 border-b">{new Date(doc.dateCreated).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
@@ -122,25 +166,37 @@ function DocList({}: Props) {
         )}
       </div>
 
-     {showModal && (
+      {showModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-md w-1/3">
             <h2 className="text-xl font-semibold mb-4">Create New Document</h2>
             <input
               type="text"
-              placeholder="Document Name"
+              placeholder="Document Title"
               className="mb-2 p-2 border w-full"
-              value={newDoc.name}
-              onChange={(e) => setNewDoc({ ...newDoc, name: e.target.value })}
+              value={newDoc.title}
+              onChange={(e) => setNewDoc({ ...newDoc, title: e.target.value })}
             />
-            <input
-              type="text"
-              placeholder="Document Description"
+            <select
+              value={newDoc.status}
+              onChange={(e) => setNewDoc({ ...newDoc, status: Number(e.target.value) })}
               className="mb-2 p-2 border w-full"
-              value={newDoc.description}
-              onChange={(e) => setNewDoc({ ...newDoc, description: e.target.value })}
-            />
-            <input type="file" onChange={handleFileChange} className="mb-2 p-2 border" />
+            >
+              <option value={1}>Draft</option>
+              <option value={2}>Pending</option>
+              <option value={3}>Approved</option>
+              <option value={4}>Rejected</option>
+            </select>
+            <select
+              value={newDoc.type}
+              onChange={(e) => setNewDoc({ ...newDoc, type: Number(e.target.value) })}
+              className="mb-2 p-2 border w-full"
+            >
+              <option value={1}>Contract</option>
+              <option value={2}>Invoice</option>
+              <option value={3}>Report</option>
+              <option value={4}>Proposal</option>
+            </select>
             <div className="mt-4 flex justify-end">
               <button
                 onClick={() => setShowModal(false)}

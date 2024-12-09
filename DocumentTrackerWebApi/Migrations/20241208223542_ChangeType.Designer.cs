@@ -4,6 +4,7 @@ using DocumentTrackerWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DocumentTrackerWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241208223542_ChangeType")]
+    partial class ChangeType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,38 +253,38 @@ namespace DocumentTrackerWebApi.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7190),
+                            Created = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6840),
                             Description = "CSCS Chairperson",
                             Name = "Chairperson",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7194)
+                            Updated = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6843)
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7201),
+                            Created = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6846),
                             Description = "CICS Dean",
                             Name = "Dean",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7201)
+                            Updated = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6847)
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7204),
+                            Created = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6848),
                             Description = "MSU Extension",
                             Name = "Extension",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7205)
+                            Updated = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6848)
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7208),
+                            Created = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6849),
                             Description = "MSU president",
                             Name = "President",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7208)
+                            Updated = new DateTime(2024, 12, 8, 22, 35, 41, 869, DateTimeKind.Utc).AddTicks(6849)
                         });
                 });
 
@@ -314,13 +317,13 @@ namespace DocumentTrackerWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb493d67-dfce-4808-8c69-664f6d1bbf37",
+                            Id = "ac2046d0-50f5-4a25-92cc-48b3fb3e8b47",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "94cb2a25-41ab-47fd-91a4-f64bf860f7f2",
+                            Id = "bc3d4191-6e09-43f4-91bc-0be8b66f9515",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -435,7 +438,7 @@ namespace DocumentTrackerWebApi.Migrations
             modelBuilder.Entity("DocumentTracker.Models.Document", b =>
                 {
                     b.HasOne("DocumentTracker.Models.User", "owner")
-                        .WithMany("documents")
+                        .WithMany()
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("owner");
@@ -533,11 +536,6 @@ namespace DocumentTrackerWebApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DocumentTracker.Models.User", b =>
-                {
-                    b.Navigation("documents");
                 });
 
             modelBuilder.Entity("DocumentTrackerWebApi.Models.Office", b =>

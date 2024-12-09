@@ -9,17 +9,19 @@ namespace DocumentTrackerWebApi.DTOs
 {
     public class UpdateDocumentDTO
     {
-        [StringLength(200, MinimumLength = 3)]
-        public string? Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
-        [EnumDataType(typeof(DocumentType))]
-        public DocumentType? Type { get; set; }
-        public IFormFile? File { get; set; }  // Allow updating file
+        public string TrackingNumber { get; init; }
 
-        public string? Owner { get; set; }
+        public string Status { get; set; }
 
-        [EnumDataType(typeof(DocumentStatus))]
-        public DocumentStatus? Status { get; set; }
+        public DocumentType Type { get; set; }
+
+        public string? OwnerId { get; set; }
+
+        [Required]
+        public DateTime DateUpdated { get; set; }
+
 
     }
 }

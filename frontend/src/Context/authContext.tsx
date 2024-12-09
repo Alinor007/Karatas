@@ -3,8 +3,9 @@ import { UserProfile } from "../Models/Auth";
 import { useNavigate } from "react-router-dom";
 import { loginAPI, registerAPI } from "../Service/AuthService";
 import { toast } from "react-toastify";
+import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
-
+import React from "react";
 
 type UserContextType = {
   user: UserProfile | null;
@@ -20,7 +21,8 @@ type UserContextType = {
 
 type Props = { children: React.ReactNode };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType>({} as UserContextType);
+
 
 export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
@@ -94,7 +96,10 @@ export const UserProvider = ({ children }: Props) => {
         localStorage.setItem("user", JSON.stringify(userObj));
         setToken(res?.data.token!);
         setUser(userObj!);
-        toast.success("Login Success!");
+        toast.success("Login Success!", {
+          icon: <div style={{ fontSize: "16px",display:"flex"  }}><FaCheckCircle/></div>, // Adjust fontSize as needed
+        
+        });
         navigate("/Page");
       }
     } catch (error) {
@@ -104,7 +109,7 @@ export const UserProvider = ({ children }: Props) => {
   };
 
   const isLoggedIn = () => {
-    return !!user;
+    return !!user && !!token;
   };
 
   const logout = () => {
@@ -118,20 +123,14 @@ export const UserProvider = ({ children }: Props) => {
 
   
  
-
   return (
-    <UserContext.Provider value={{ loginUser, user, token, logout, isLoggedIn, registerUser, }}>
+    <UserContext.Provider
+      value={{ loginUser, user, token, logout, isLoggedIn, registerUser }}
+    >
       {isReady ? children : null}
     </UserContext.Provider>
   );
 };
 
-export const useAuth = (): UserContextType => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useAuth must be used within a UserProvider");
-  }
-  return context;
-};
-
+export const useAuth = () => React.useContext(UserContext);
 

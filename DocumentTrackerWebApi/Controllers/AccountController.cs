@@ -57,7 +57,7 @@ namespace DocumentTrackerWebApi.Controllers
             [HttpGet]
             public async Task<ActionResult<IEnumerable<User>>> GetUsers()
             {
-                return await _context.Users.Include(u => u.Office).ToListAsync();
+                return await _context.Users.Include(u => u.Office).Include(d=>d.documents).ToListAsync();
             }
             [HttpGet("{id}")]
             public async Task<ActionResult<User>> GetUser(string Name)

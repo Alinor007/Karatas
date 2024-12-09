@@ -4,6 +4,7 @@ using DocumentTrackerWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DocumentTrackerWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241206171343_ChangeDocumentModel")]
+    partial class ChangeDocumentModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,9 +42,8 @@ namespace DocumentTrackerWebApi.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -51,9 +53,8 @@ namespace DocumentTrackerWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -250,38 +251,38 @@ namespace DocumentTrackerWebApi.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7190),
+                            Created = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3747),
                             Description = "CSCS Chairperson",
                             Name = "Chairperson",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7194)
+                            Updated = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3753)
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7201),
+                            Created = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3763),
                             Description = "CICS Dean",
                             Name = "Dean",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7201)
+                            Updated = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3764)
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7204),
+                            Created = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3767),
                             Description = "MSU Extension",
                             Name = "Extension",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7205)
+                            Updated = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3768)
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7208),
+                            Created = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3771),
                             Description = "MSU president",
                             Name = "President",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7208)
+                            Updated = new DateTime(2024, 12, 6, 17, 13, 41, 796, DateTimeKind.Utc).AddTicks(3772)
                         });
                 });
 
@@ -314,13 +315,13 @@ namespace DocumentTrackerWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb493d67-dfce-4808-8c69-664f6d1bbf37",
+                            Id = "150bf7e0-dd67-42e4-b819-7d3c17ea36fe",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "94cb2a25-41ab-47fd-91a4-f64bf860f7f2",
+                            Id = "672f2ff5-9308-409a-9e02-b86ba4b1a1d4",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -435,7 +436,7 @@ namespace DocumentTrackerWebApi.Migrations
             modelBuilder.Entity("DocumentTracker.Models.Document", b =>
                 {
                     b.HasOne("DocumentTracker.Models.User", "owner")
-                        .WithMany("documents")
+                        .WithMany()
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("owner");
@@ -533,11 +534,6 @@ namespace DocumentTrackerWebApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DocumentTracker.Models.User", b =>
-                {
-                    b.Navigation("documents");
                 });
 
             modelBuilder.Entity("DocumentTrackerWebApi.Models.Office", b =>

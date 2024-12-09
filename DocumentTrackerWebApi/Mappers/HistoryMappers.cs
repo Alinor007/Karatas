@@ -29,7 +29,7 @@ namespace DocumentTrackerWebApi.Mappers
         {
             return new History
             {
-                DocumentApprovalId = historyDTO.DocumentApprovalId,
+              
                 Remarks = historyDTO.Remarks,
                 Created = DateTime.UtcNow, // Set by server
                 Updated = DateTime.UtcNow  // Initialize as Created time

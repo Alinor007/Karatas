@@ -14,17 +14,19 @@ import { useAuth } from "../../Context/authContext";
 type Props = {};
 
 const Sidebar = (props: Props) => {
-  const {user, logout } = useAuth();
+  const { isLoggedIn, user, logout } = useAuth();
   const [open, setOpen] = useState(true);
   const [documentsOpen, setDocumentsOpen] = useState(false); // State for Documents dropdown
   const [officesOpen, setOfficesOpen] = useState(false); // State for Offices dropdown
   const location = useLocation(); // Get the current route
+  
 
 
   const isActive = (path: string) => location.pathname === path;
 
 
   return (
+   
     <div className="flex ">
       <div
         className={`${
@@ -133,18 +135,22 @@ const Sidebar = (props: Props) => {
         </nav>
         </div>
         
-        <footer className={`flex items-center pt-2 pb-2 ${open ? "space-x-4" : "justify-center"}`}>
-            <img src={IconAdmin} alt="Admin Icon" className={`rounded-full ${open ? "h-12 w-12" : " w-8 h-8"}`} />
-            {open && (
-              <div>
-                <p className="font-semibold text-sm">{user?.firstName || "User"}</p>  {/* Display "User" if firstName is unavailable */}
-                <p className="text-xs">{user?.email || "No email"}</p>  {/* Use a fallback for email as well */}
-              </div>
-            )}
-        </footer>
+      <footer className={`flex items-center pt-2 pb-2 ${open ? "space-x-4" : "justify-center"}`}>
+      <img src={IconAdmin} alt="Admin Icon" className={`rounded-full ${open ? "h-12 w-12" : "w-8 h-8"}`} />
+          {open && (
+            <div>
+              {isLoggedIn() ? (
+                <p className="font-semibold text-sm">{user?.userName}</p>
+              ) : (
+                <p className="text-xs">{"You're not logged in"}</p>
+              )}
+            </div>
+          )}
+    </footer>
       </div>
      
     </div>
+    
   );
 };
 

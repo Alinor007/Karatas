@@ -4,6 +4,7 @@ using DocumentTrackerWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DocumentTrackerWebApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241208222125_ChangeStatu&Typy")]
+    partial class ChangeStatuTypy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +54,8 @@ namespace DocumentTrackerWebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -250,38 +252,38 @@ namespace DocumentTrackerWebApi.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7190),
+                            Created = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9167),
                             Description = "CSCS Chairperson",
                             Name = "Chairperson",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7194)
+                            Updated = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9170)
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7201),
+                            Created = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9173),
                             Description = "CICS Dean",
                             Name = "Dean",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7201)
+                            Updated = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9174)
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7204),
+                            Created = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9175),
                             Description = "MSU Extension",
                             Name = "Extension",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7205)
+                            Updated = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9176)
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7208),
+                            Created = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9177),
                             Description = "MSU president",
                             Name = "President",
                             Stage = 0,
-                            Updated = new DateTime(2024, 12, 8, 23, 19, 1, 200, DateTimeKind.Utc).AddTicks(7208)
+                            Updated = new DateTime(2024, 12, 8, 22, 21, 24, 256, DateTimeKind.Utc).AddTicks(9177)
                         });
                 });
 
@@ -314,13 +316,13 @@ namespace DocumentTrackerWebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "eb493d67-dfce-4808-8c69-664f6d1bbf37",
+                            Id = "da70d9dc-e087-4198-a4b3-97bbb671ff51",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "94cb2a25-41ab-47fd-91a4-f64bf860f7f2",
+                            Id = "32c59513-d23e-4b22-96df-4a7fae3a2708",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -435,7 +437,7 @@ namespace DocumentTrackerWebApi.Migrations
             modelBuilder.Entity("DocumentTracker.Models.Document", b =>
                 {
                     b.HasOne("DocumentTracker.Models.User", "owner")
-                        .WithMany("documents")
+                        .WithMany()
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("owner");
@@ -533,11 +535,6 @@ namespace DocumentTrackerWebApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DocumentTracker.Models.User", b =>
-                {
-                    b.Navigation("documents");
                 });
 
             modelBuilder.Entity("DocumentTrackerWebApi.Models.Office", b =>
